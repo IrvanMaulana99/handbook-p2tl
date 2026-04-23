@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Handbook P2TL · PT PLN (Persero)</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f2f5fb;--sur:#fff;--sur2:#edf0f8;--bd:#cdd5e8;--bd2:#a8b6d0;
+  --tx:#18233a;--mu:#566484;
+  --ac:#1b3870;--acm:#264ea8;--acl:#e6ecf8;--acll:#f0f4fc;
+  --ok:#166b30;--okb:#e7f5ed;
+  --wn:#7a5000;--wnb:#fff5e0;
+  --er:#922020;--erb:#fceaea;
+  --in:#154878;--inb:#e5f1fc;
+  --sh:0 1px 4px rgba(27,56,112,.08),0 3px 14px rgba(27,56,112,.06);
+  --sh0:0 1px 3px rgba(27,56,112,.09);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;overflow-x:hidden;line-height:1.6}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#1b3870 0%,#264ea8 55%,#1b3060 100%);padding:50px 24px 62px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% -5%,rgba(255,255,255,.14) 0%,transparent 58%);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:46px;background:var(--bg);clip-path:ellipse(54% 100% at 50% 100%)}
+.hbadge{display:inline-flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.62);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:4px 14px;margin-bottom:18px}
+.hero h1{font-size:clamp(1.85rem,5.5vw,3.4rem);font-weight:700;line-height:1.1;letter-spacing:-.6px;color:#fff;margin-bottom:6px}
+.hero h1 em{font-style:normal;color:#91b5f2}
+.hero-sub{color:rgba(255,255,255,.58);font-size:13px;font-family:'DM Mono',monospace;letter-spacing:.3px}
+.pw{max-width:450px;margin:28px auto 0}
+.pl{display:flex;justify-content:space-between;font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,.48);margin-bottom:7px;letter-spacing:.5px;text-transform:uppercase}
+.pb{background:rgba(255,255,255,.14);border-radius:99px;height:5px;overflow:hidden}
+.pf{height:100%;background:linear-gradient(90deg,#91b5f2,#c5d9ff);border-radius:99px;transition:width .7s cubic-bezier(.4,0,.2,1)}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--bd);padding:0 16px;overflow-x:auto;scrollbar-width:none;box-shadow:var(--sh0)}
+.nav::-webkit-scrollbar{display:none}
+.ntabs{display:flex;min-width:max-content;max-width:1160px;margin:0 auto}
+.ntab{font-family:'DM Sans',sans-serif;font-size:12.5px;font-weight:500;padding:13px 14px;border:none;background:transparent;color:var(--mu);cursor:pointer;border-bottom:2px solid transparent;transition:all .18s;white-space:nowrap}
+.ntab:hover{color:var(--tx)}.ntab.on{color:var(--ac);border-bottom-color:var(--ac);font-weight:600}
+
+/* MAIN */
+.main{max-width:1160px;margin:0 auto;padding:32px 16px 80px}
+.pan{display:none;animation:pi .25s ease}.pan.on{display:block}
+@keyframes pi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* HEADINGS */
+.stit{font-size:17px;font-weight:700;margin-bottom:18px;display:flex;align-items:center;gap:10px;color:var(--ac)}
+.smit{font-size:14px;font-weight:700;margin:22px 0 10px;color:var(--acm)}
+.hr{height:1px;background:var(--bd);margin:26px 0}
+.gh{font-family:'DM Mono',monospace;font-size:10px;color:var(--mu);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;padding-bottom:7px;border-bottom:2px solid var(--bd);font-weight:500}
+
+/* GRIDS */
+.g2{display:grid;grid-template-columns:repeat(auto-fill,minmax(295px,1fr));gap:14px}
+.g3{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}
+
+/* CARD */
+.card{background:var(--sur);border:1px solid var(--bd);border-radius:12px;overflow:hidden;box-shadow:var(--sh0);transition:border-color .18s,box-shadow .18s,transform .18s}
+.card:hover{border-color:var(--acm);box-shadow:var(--sh);transform:translateY(-2px)}
+.chd{display:flex;align-items:center;gap:10px;padding:12px 15px;background:var(--acll);border-bottom:1px solid var(--bd);cursor:pointer;user-select:none}
+.cic{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;background:rgba(38,78,168,.12)}
+.ctt{font-size:13px;font-weight:600;flex:1;color:var(--ac)}
+.car{color:var(--mu);font-size:11px;transition:transform .18s}
+.card.op .car{transform:rotate(90deg)}
+.cbd{padding:14px 15px;display:none}.card.op .cbd{display:block}
+
+/* ITEMS */
+.item{display:flex;align-items:flex-start;gap:10px;padding:7px 0;border-bottom:1px solid rgba(205,213,232,.55);font-size:13px;line-height:1.55}
+.item:last-child{border-bottom:none}
+.chk{width:16px;height:16px;border:1.5px solid var(--bd2);border-radius:4px;flex-shrink:0;margin-top:2px;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;font-size:10px;color:transparent}
+.chk.on{background:var(--ac);border-color:var(--ac);color:#fff}
+.it{flex:1}.it.dn{color:var(--mu);text-decoration:line-through}
+
+/* FORMULA */
+.fc{background:var(--sur);border:1px solid var(--bd);border-radius:10px;padding:17px;margin-bottom:13px;box-shadow:var(--sh0);transition:border-color .18s,box-shadow .18s}
+.fc:hover{border-color:var(--acm);box-shadow:var(--sh)}
+.fn{font-family:'DM Mono',monospace;font-size:9.5px;color:var(--acm);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:9px;font-weight:500}
+.fm{font-family:'DM Mono',monospace;font-size:18px;font-weight:500;color:var(--ac);margin-bottom:8px;display:inline-block;padding:5px 11px;background:var(--acll);border-radius:6px;line-height:1.3}
+.fd{font-size:12.5px;color:var(--mu);line-height:1.7;margin-top:8px}
+.fv{margin-top:10px;padding:9px 12px;background:var(--sur2);border-radius:7px;border:1px solid var(--bd);display:flex;flex-direction:column;gap:5px}
+.fvr{font-size:12px;display:flex;gap:8px;align-items:baseline}
+.fvr b{font-family:'DM Mono',monospace;font-size:12px;color:var(--ac);min-width:52px;flex-shrink:0;font-weight:500}
+.fvr span{color:var(--mu)}
+.fex{margin-top:9px;padding:9px 12px;background:var(--inb);border-radius:7px;border-left:3px solid var(--acm);font-size:12px;color:var(--in);line-height:1.7}
+.fex b{color:var(--ac)}
+.fwn{margin-top:9px;padding:9px 12px;background:var(--erb);border-radius:7px;border-left:3px solid var(--er);font-size:12px;color:var(--er);line-height:1.75}
+.fok{margin-top:9px;padding:9px 12px;background:var(--okb);border-radius:7px;border-left:3px solid var(--ok);font-size:12px;color:var(--ok);line-height:1.7}
+
+/* BOXES */
+.bx{padding:12px 15px;border-radius:9px;font-size:13px;line-height:1.7;margin-bottom:13px;border:1px solid}
+.bx.info{background:var(--inb);border-color:rgba(21,72,120,.2);color:var(--in)}
+.bx.warn{background:var(--wnb);border-color:rgba(122,80,0,.2);color:var(--wn)}
+.bx.ok{background:var(--okb);border-color:rgba(22,107,48,.2);color:var(--ok)}
+.bx.bad{background:var(--erb);border-color:rgba(146,32,32,.2);color:var(--er)}
+.bxt{font-weight:700;font-size:10px;letter-spacing:1px;text-transform:uppercase;margin-bottom:5px;display:block}
+
+/* CALC */
+.cw{background:var(--sur);border:1px solid var(--bd);border-radius:12px;padding:24px;margin-bottom:20px;box-shadow:var(--sh0)}
+.ctit{font-size:14px;font-weight:700;margin-bottom:15px;color:var(--ac)}
+.ctabs{display:flex;gap:7px;margin-bottom:18px;flex-wrap:wrap}
+.ctab{font-size:12px;font-weight:500;padding:7px 14px;border-radius:6px;border:1.5px solid var(--bd);background:transparent;color:var(--mu);cursor:pointer;transition:all .18s}
+.ctab:hover{border-color:var(--acm);color:var(--acm)}
+.ctab.on{background:var(--ac);border-color:var(--ac);color:#fff;font-weight:600}
+.cf{display:none}.cf.on{display:block}
+.ir{display:grid;grid-template-columns:repeat(auto-fill,minmax(162px,1fr));gap:11px;margin-bottom:13px}
+.ig label{display:block;font-family:'DM Mono',monospace;font-size:9.5px;color:var(--mu);margin-bottom:4px;letter-spacing:.5px;font-weight:500;text-transform:uppercase}
+.ig input{width:100%;background:var(--sur2);border:1.5px solid var(--bd);border-radius:7px;padding:9px 11px;color:var(--tx);font-family:'DM Mono',monospace;font-size:13px;outline:none;transition:border-color .18s}
+.ig input:focus{border-color:var(--ac);background:#fff}
+.btn{background:var(--ac);color:#fff;border:none;border-radius:8px;padding:10px 24px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:background .18s}
+.btn:hover{background:var(--acm)}
+.cr{margin-top:15px;background:var(--acll);border:1px solid var(--bd);border-radius:9px;padding:13px;display:none}
+.cr.on{display:block}
+.rr{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--bd);font-size:13px}
+.rr:last-child{border-bottom:none}
+.rl{color:var(--mu);font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.3px}
+.rv{font-family:'DM Mono',monospace;font-size:14px;font-weight:500}
+.rv.ok{color:var(--ok)}.rv.wn{color:var(--wn)}.rv.er{color:var(--er)}
+.eler{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:13px;padding:9px 13px;background:var(--sur2);border:1px solid var(--bd);border-radius:8px}
+.elei{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--mu);font-family:'DM Mono',monospace}
+.eled{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+
+/* PELANGGARAN */
+.pgr{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:14px}
+.pc{border-radius:12px;padding:17px;border:1.5px solid;box-shadow:var(--sh0)}
+.pc.p1{background:#fdf2f2;border-color:#e2aaaa}
+.pc.p2{background:#fdf6ed;border-color:#e2c070}
+.pc.p3{background:#fffae5;border-color:#d4a800}
+.pc.p4{background:#eef4ff;border-color:#90b4f0}
+.pbg{display:inline-block;font-family:'DM Mono',monospace;font-size:11px;font-weight:500;padding:3px 10px;border-radius:99px;margin-bottom:10px}
+.p1 .pbg{background:#fcdede;color:#8e1c1c}
+.p2 .pbg{background:#fde4b4;color:#7a5000}
+.p3 .pbg{background:#fff0c0;color:#6e5400}
+.p4 .pbg{background:#d0e4ff;color:#1b3870}
+.ptit{font-size:14px;font-weight:700;margin-bottom:8px;color:var(--tx)}
+.pdesc{font-size:12.5px;color:var(--mu);line-height:1.65}
+.pmt{font-family:'DM Mono',monospace;font-size:10px;color:var(--mu);letter-spacing:1px;text-transform:uppercase;margin:10px 0 6px;font-weight:500}
+.tag{display:inline-block;background:var(--sur2);border:1px solid var(--bd);border-radius:5px;padding:2px 8px;font-size:11px;color:var(--mu);margin:2px 2px 2px 0}
+
+/* SOP */
+.sph{margin-bottom:26px}
+.spht{font-size:12.5px;font-weight:700;color:var(--ac);margin-bottom:10px;display:flex;align-items:center;gap:10px;text-transform:uppercase;letter-spacing:.5px}
+.spht::after{content:'';flex:1;height:2px;background:var(--bd)}
+.sps{display:flex;flex-direction:column;gap:6px}
+.ss{display:flex;gap:11px;align-items:flex-start;background:var(--sur);border:1px solid var(--bd);border-radius:8px;padding:10px 14px;font-size:13px;line-height:1.55;box-shadow:var(--sh0);transition:border-color .18s,transform .18s}
+.ss:hover{border-color:var(--acm);transform:translateX(3px)}
+.sn{font-family:'DM Mono',monospace;font-size:11px;color:var(--ac);background:var(--acll);border-radius:5px;padding:2px 7px;flex-shrink:0;margin-top:1px;font-weight:500}
+
+/* VOLTAGE */
+.vl{display:flex;flex-direction:column;gap:10px}
+.vi{background:var(--sur);border:1px solid var(--bd);border-radius:10px;padding:15px;display:flex;align-items:center;gap:15px;box-shadow:var(--sh0);transition:transform .18s,box-shadow .18s}
+.vi:hover{transform:translateX(4px);box-shadow:var(--sh)}
+.vic{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.vin{flex:1}.vnm{font-weight:700;font-size:14px;margin-bottom:3px;color:var(--tx)}
+.vr{font-family:'DM Mono',monospace;font-size:13px;font-weight:500}
+.vd{font-size:12px;color:var(--mu);margin-top:4px;line-height:1.6}
+
+/* MCARD (Pengukuran) */
+.mc{background:var(--sur);border:1.5px solid var(--bd);border-radius:12px;overflow:hidden;box-shadow:var(--sh0);margin-bottom:16px;transition:border-color .18s}
+.mc:hover{border-color:var(--acm)}
+.mch{background:var(--ac);color:#fff;padding:11px 15px;display:flex;align-items:center;gap:10px}
+.mct{font-weight:700;font-size:13px}
+.mcb2{background:rgba(255,255,255,.18);border-radius:6px;padding:2px 9px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.5px;font-weight:500}
+.mcb{padding:15px}
+.mcb table{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:7px}
+.mcb th{text-align:left;color:var(--ac);font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:6px 8px;background:var(--acll);border-bottom:2px solid var(--bd)}
+.mcb td{padding:8px;border-bottom:1px solid var(--bd);color:var(--tx);vertical-align:top;line-height:1.55}
+.mcb tr:last-child td{border-bottom:none}
+.mcb td:first-child{font-family:'DM Mono',monospace;font-size:12px;color:var(--ac);font-weight:500;white-space:nowrap}
+.mcb td b{color:var(--tx);font-weight:600}
+.pr{color:#b02020;font-weight:600}.pk{color:#2c3e50;font-weight:600}
+.bm{display:inline-block;background:var(--acll);color:var(--ac);font-family:'DM Mono',monospace;font-size:11px;font-weight:500;padding:2px 8px;border-radius:5px;border:1px solid var(--bd)}
+
+/* MPB */
+.scg{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+.sci{background:var(--sur);border:1px solid var(--bd);border-radius:8px;padding:12px 14px;display:flex;align-items:center;gap:12px;box-shadow:var(--sh0)}
+.scc{font-family:'DM Mono',monospace;font-size:22px;font-weight:500;color:var(--ac);width:36px;flex-shrink:0}
+.scl{font-size:13px;font-weight:500;color:var(--tx)}
+
+/* WIRE */
+.wg{display:flex;flex-direction:column;gap:7px}
+.wi{display:flex;align-items:flex-start;gap:12px;background:var(--sur);border:1px solid var(--bd);border-radius:8px;padding:10px 14px;font-size:13px;line-height:1.5;box-shadow:var(--sh0)}
+.wd{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:4px}
+
+/* APD */
+.ag{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+.ai{background:var(--sur);border:1.5px solid var(--bd);border-radius:10px;padding:14px;text-align:center;font-size:12.5px;font-weight:500;box-shadow:var(--sh0);color:var(--tx);transition:border-color .18s,transform .18s}
+.ai:hover{border-color:var(--acm);transform:translateY(-2px)}
+.aix{font-size:26px;margin-bottom:7px}
+
+/* LAW */
+.ll{display:flex;flex-direction:column;gap:10px}
+.li{background:var(--sur);border:1px solid var(--bd);border-left:4px solid var(--ac);border-radius:8px;padding:12px 14px;font-size:13px;line-height:1.65;box-shadow:var(--sh0)}
+.li strong{font-family:'DM Mono',monospace;font-size:10px;display:block;margin-bottom:4px;text-transform:uppercase;color:var(--ac);letter-spacing:.5px;font-weight:500}
+
+/* SEARCH */
+.sw{position:relative;margin-bottom:22px}
+.si{width:100%;background:var(--sur);border:1.5px solid var(--bd);border-radius:10px;padding:12px 16px 12px 43px;color:var(--tx);font-family:'DM Sans',sans-serif;font-size:14px;outline:none;transition:border-color .18s;box-shadow:var(--sh0)}
+.si:focus{border-color:var(--ac);box-shadow:0 0 0 3px rgba(27,56,112,.08)}
+.sic{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--mu);font-size:17px}
+.sr{display:flex;flex-direction:column;gap:7px}
+.sri{background:var(--sur);border:1px solid var(--bd);border-radius:8px;padding:11px 14px;font-size:13px;line-height:1.55;box-shadow:var(--sh0)}
+.sri mark{background:#fff3a0;color:#7a5000;border-radius:3px;padding:0 2px}
+.se{color:var(--mu);text-align:center;padding:40px;font-size:14px}
+
+/* FOOTER */
+.footer{text-align:center;padding:34px 16px 42px;color:var(--mu);font-size:12px;font-family:'DM Mono',monospace;border-top:1px solid var(--bd);background:var(--sur);line-height:2.2}
+
+/* ANIM */
+@keyframes ci{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:3px}
+@media(max-width:640px){.g2,.g3{grid-template-columns:1fr}.pgr{grid-template-columns:1fr}.fm{font-size:15px}.ir{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="hbadge">⚡ Handbook P2TL · PLN</div>
+  <h1>Handbook <em>P2TL</em></h1>
+  <p class="hero-sub">Penertiban Pemakaian Tenaga Listrik · PT PLN (Persero)</p>
+  <div class="pw">
+    <div class="pl"><span>Progress Belajar</span><span id="ptxt">0 / 0 dipelajari</span></div>
+    <div class="pb"><div class="pf" id="pfill" style="width:0%"></div></div>
+  </div>
+</div>
+<div class="nav">
+  <div class="ntabs">
+    <button class="ntab on" onclick="sp('r',this)">📋 Ringkasan</button>
+    <button class="ntab" onclick="sp('ru',this)">🔢 Rumus</button>
+    <button class="ntab" onclick="sp('k',this)">🧮 Kalkulator</button>
+    <button class="ntab" onclick="sp('p',this)">⚠️ Pelanggaran</button>
+    <button class="ntab" onclick="sp('m',this)">📐 Pengukuran</button>
+    <button class="ntab" onclick="sp('s',this)">📋 SOP P2TL</button>
+    <button class="ntab" onclick="sp('t',this)">⚡ Tegangan</button>
+    <button class="ntab" onclick="sp('a',this)">🔧 Alat & APD</button>
+    <button class="ntab" onclick="sp('mpb',this)">📟 MPB</button>
+    <button class="ntab" onclick="sp('h',this)">📜 Dasar Hukum</button>
+    <button class="ntab" onclick="sp('c',this)">🔍 Cari</button>
+  </div>
+</div>
+<div class="main">
+<!-- RINGKASAN -->
+<div class="pan on" id="pan-r">
+<div class="stit">📋 Ringkasan Konsep</div>
+<div class="g2">
+
+<div class="card" id="cd1">
+<div class="chd" onclick="tc('cd1')"><div class="cic">⚡</div><span class="ctt">Besaran Listrik Dasar</span><span class="car">▶</span></div>
+<div class="cbd">
+<div class="item"><div class="chk" data-id="r1" onclick="tck(this)"></div><div class="it"><b>Tegangan (V, Volt)</b> — gaya dorong aliran listrik dalam rangkaian elektrik</div></div>
+<div class="item"><div class="chk" data-id="r2" onclick="tck(this)"></div><div class="it"><b>Arus (I, Ampere)</b> — besarnya aliran muatan listrik per satuan waktu</div></div>
+<div class="item"><div class="chk" data-id="r3" onclick="tck(this)"></div><div class="it"><b>Hambatan (R, Ohm)</b> — kemampuan material menentang aliran arus listrik</div></div>
+<div class="item"><div class="chk" data-id="r4" onclick="tck(this)"></div><div class="it"><b>Daya Aktif (P)</b> — daya kerja nyata, Watt/kW → P = V × I × cos φ</div></div>
+<div class="item"><div class="chk" data-id="r5" onclick="tck(this)"></div><div class="it"><b>Daya Reaktif (Q)</b> — daya bolak-balik (medan magnet/kapasitor), var/kVAR → Q = V × I × sin φ</div></div>
+<div class="item"><div class="chk" data-id="r6" onclick="tck(this)"></div><div class="it"><b>Daya Semu (S)</b> — total daya yang dipasok sumber, VA/kVA → S = V × I → S² = P² + Q²</div></div>
+<div class="item"><div class="chk" data-id="r7" onclick="tck(this)"></div><div class="it"><b>Faktor Daya (PF = cos φ)</b> — efisiensi penggunaan listrik 0–1 → PF = P ÷ S. Standar PLN ≥ 0.85</div></div>
+<div class="item"><div class="chk" data-id="r8" onclick="tck(this)"></div><div class="it"><b>Impedansi (Z)</b> — hambatan total rangkaian AC: Z = √(R² + X²), satuan Ohm</div></div>
+<div class="item"><div class="chk" data-id="r9" onclick="tck(this)"></div><div class="it"><b>Reaktansi Induktif (XL)</b> — hambatan kumparan terhadap AC: XL = 2πfL</div></div>
+<div class="item"><div class="chk" data-id="r10" onclick="tck(this)"></div><div class="it"><b>Reaktansi Kapasitif (XC)</b> — hambatan kapasitor terhadap AC: XC = 1/(2πfC)</div></div>
+</div></div>
+
+<div class="card" id="cd2">
+<div class="chd" onclick="tc('cd2')"><div class="cic">Ω</div><span class="ctt">Hukum Ohm &amp; Kirchhoff</span><span class="car">▶</span></div>
+<div class="cbd">
+<div class="item"><div class="chk" data-id="o1" onclick="tck(this)"></div><div class="it"><b>V = I × R</b> — Tegangan = Arus × Hambatan</div></div>
+<div class="item"><div class="chk" data-id="o2" onclick="tck(this)"></div><div class="it"><b>I = V / R</b> — Arus = Tegangan ÷ Hambatan</div></div>
+<div class="item"><div class="chk" data-id="o3" onclick="tck(this)"></div><div class="it"><b>R = V / I</b> — Hambatan = Tegangan ÷ Arus</div></div>
+<div class="item"><div class="chk" data-id="o4" onclick="tck(this)"></div><div class="it"><b>Hukum Kirchhoff 1 (KCL)</b> — jumlah arus masuk suatu titik = jumlah arus keluar (ΣI masuk = ΣI keluar)</div></div>
+<div class="item"><div class="chk" data-id="o5" onclick="tck(this)"></div><div class="it"><b>Hukum Kirchhoff 2 (KVL)</b> — jumlah tegangan dalam satu loop tertutup = nol (ΣV = 0)</div></div>
+<div class="item"><div class="chk" data-id="o6" onclick="tck(this)"></div><div class="it"><b>R seri:</b> R_total = R1 + R2 + R3 — hambatan saling bertambah</div></div>
+<div class="item"><div class="chk" data-id="o7" onclick="tck(this)"></div><div class="it"><b>R paralel:</b> 1/R_total = 1/R1 + 1/R2 — hambatan total lebih kecil dari terkecil</div></div>
+</div></div>
+
+<div class="card" id="cd3">
+<div class="chd" onclick="tc('cd3')"><div class="cic">🔌</div><span class="ctt">KWH Meter (APP)</span><span class="car">▶</span></div>
+<div class="cbd">
+<div class="item"><div class="chk" data-id="k1" onclick="tck(this)"></div><div class="it"><b>APP</b> = Alat Pengukur dan Pembatas — mengukur pemakaian energi dan membatasi daya sesuai kontrak</div></div>
+<div class="item"><div class="chk" data-id="k2" onclick="tck(this)"></div><div class="it"><b>Jenis teknologi:</b> Elektro-mekanik (analog/piringan), Elektronik digital</div></div>
+<div class="item"><div class="chk" data-id="k3" onclick="tck(this)"></div><div class="it"><b>Sistem bayar:</b> Pascabayar (analog/digital), Prabayar/Prepaid (digital token)</div></div>
+<div class="item"><div class="chk" data-id="k4" onclick="tck(this)"></div><div class="it"><b>Terminal 1 Fasa:</b> 1=Fasa-in, 3=Fasa-out (ke MCB), 4=Netral-in, 6=Netral-out</div></div>
+<div class="item"><div class="chk" data-id="k5" onclick="tck(this)"></div><div class="it"><b>Terminal 3 Fasa:</b> 1,3 (R), 4,6 (S), 7,9 (T), 10=Netral-in, 11=Netral-out</div></div>
+<div class="item"><div class="chk" data-id="k6" onclick="tck(this)"></div><div class="it"><b>Komponen utama:</b> Kumparan arus, kumparan tegangan, piringan aluminium, rem magnet, stand meter (register), name plate, terminal, segel metrologi, segel tutup</div></div>
+<div class="item"><div class="chk" data-id="k7" onclick="tck(this)"></div><div class="it"><b>Konstanta c:</b> jumlah putaran piringan/pulsa LED per kWh — tertera di name plate, contoh: "900 rev/kWh"</div></div>
+<div class="item"><div class="chk" data-id="k8" onclick="tck(this)"></div><div class="it"><b>Meter Energi (Analog/Digital) Pascabayar</b> mencatat pemakaian dalam kWh, dibaca tiap bulan oleh petugas PLN</div></div>
+</div></div>
+
+<div class="card" id="cd4">
+<div class="chd" onclick="tc('cd4')"><div class="cic">🏷️</div><span class="ctt">Jenis Tarif &amp; Golongan Listrik</span><span class="car">▶</span></div>
+<div class="cbd">
+<div class="item"><div class="chk" data-id="t1" onclick="tck(this)"></div><div class="it"><b>R (Rumah Tangga)</b> — R1: 450VA–2.200VA, R2: 2.201–6.600VA, R3: &gt;6.600VA</div></div>
+<div class="item"><div class="chk" data-id="t2" onclick="tck(this)"></div><div class="it"><b>S (Sosial)</b> — tempat ibadah, panti asuhan, sosial lainnya</div></div>
+<div class="item"><div class="chk" data-id="t3" onclick="tck(this)"></div><div class="it"><b>B (Bisnis)</b> — pertokoan, hotel, restoran, jasa komersial</div></div>
+<div class="item"><div class="chk" data-id="t4" onclick="tck(this)"></div><div class="it"><b>I (Industri)</b> — pabrik, kawasan industri, manufaktur</div></div>
+<div class="item"><div class="chk" data-id="t5" onclick="tck(this)"></div><div class="it"><b>P (Pemerintah)</b> — kantor pemerintahan, penerangan jalan umum</div></div>
+<div class="item"><div class="chk" data-id="t6" onclick="tck(this)"></div><div class="it"><b>MCB (Power Limit)</b> — membatasi daya sesuai golongan tarif, trip otomatis jika terlampaui. Kapasitas sesuai daya kontrak (A)</div></div>
+</div></div>
+
+<div class="card" id="cd5">
+<div class="chd" onclick="tc('cd5')"><div class="cic">🔗</div><span class="ctt">Jaringan Distribusi Tegangan Rendah</span><span class="car">▶</span></div>
+<div class="cbd">
+<div class="item"><div class="chk" data-id="j1" onclick="tck(this)"></div><div class="it"><b>JTR</b> (Jaringan Tegangan Rendah) — distribusi ke pelanggan akhir, 220/380V</div></div>
+<div class="item"><div class="chk" data-id="j2" onclick="tck(this)"></div><div class="it"><b>SUTR</b> (Saluran Udara TR) — NYA (telanjang), NYAF (fleksibel), NYM (berselubung)</div></div>
+<div class="item"><div class="chk" data-id="j3" onclick="tck(this)"></div><div class="it"><b>SKTR</b> (Saluran Kabel Bawah Tanah TR) — NYFGBY (lapis baja), NYFEBY</div></div>
+<div class="item"><div class="chk" data-id="j4" onclick="tck(this)"></div><div class="it"><b>SR</b> (Sambungan Rumah) — kabel dari tiang/panel distribusi ke APP pelanggan (instalasi luar ruangan)</div></div>
+<div class="item"><div class="chk" data-id="j5" onclick="tck(this)"></div><div class="it"><b>STL</b> (Saluran Tegangan Listrik) — instalasi dalam bangunan pelanggan, umumnya kabel NYAF</div></div>
+<div class="item"><div class="chk" data-id="j6" onclick="tck(this)"></div><div class="it"><b>FCO</b> (Fuse Cut Out) — pengaman lebur di JTM, proteksi arus hubung singkat &amp; beban lebih</div></div>
+<div class="item"><div class="chk" data-id="j7" onclick="tck(this)"></div><div class="it"><b>PHB-TR</b> (Panel Hubung Bagi TR) — panel distribusi di gardu berisi Bus Bar, NH-Fuse, LBS per jurusan</div></div>
+<div class="item"><div class="chk" data-id="j8" onclick="tck(this)"></div><div class="it"><b>LBS</b> (Load Break Switch) — saklar pemutus beban, dapat dibuka/ditutup dalam kondisi berbeban</div></div>
+</div></div>
+
+<div class="card" id="cd6">
+<div class="chd" onclick="tc('cd6')"><div class="cic">🎨</div><span class="ctt">Warna Kabel &amp; Pengawatan (PUIL)</span><span class="car">▶</span></div>
+<div class="cbd">
+<div class="item"><div class="chk" data-id="w1" onclick="tck(this)"></div><div class="it" style="display:flex;align-items:center;gap:8px"><span style="background:#c0392b;width:12px;height:12px;border-radius:50%;display:inline-block;flex-shrink:0"></span><b>R</b> — Merah (Fasa R / L1)</div></div>
+<div class="item"><div class="chk" data-id="w2" onclick="tck(this)"></div><div class="it" style="display:flex;align-items:center;gap:8px"><span style="background:#d4ac0d;width:12px;height:12px;border-radius:50%;display:inline-block;flex-shrink:0"></span><b>S</b> — Kuning (Fasa S / L2)</div></div>
+<div class="item"><div class="chk" data-id="w3" onclick="tck(this)"></div><div class="it" style="display:flex;align-items:center;gap:8px"><span style="background:#2c3e50;width:12px;height:12px;border-radius:50%;display:inline-block;flex-shrink:0;border:1px solid #999"></span><b>T</b> — Hitam (Fasa T / L3)</div></div>
+<div class="item"><div class="chk" data-id="w4" onclick="tck(this)"></div><div class="it" style="display:flex;align-items:center;gap:8px"><span style="background:#2980b9;width:12px;height:12px;border-radius:50%;display:inline-block;flex-shrink:0"></span><b>N</b> — Biru (Netral)</div></div>
+<div class="item"><div class="chk" data-id="w5" onclick="tck(this)"></div><div class="it" style="display:flex;align-items:center;gap:8px"><span style="background:#27ae60;width:7px;height:12px;border-radius:2px;display:inline-block;flex-shrink:0;border:2px solid #d4ac0d"></span><b>PE</b> — Hijau-Kuning (Grounding / Protective Earth)</div></div>
+<div class="item"><div class="chk" data-id="w6" onclick="tck(this)"></div><div class="it">Standar: <b>PUIL 2000</b> (SNI 04-0225-2000) dan <b>PUIL 2011</b> (SNI 0225:2011)</div></div>
+<div class="item"><div class="chk" data-id="w7" onclick="tck(this)"></div><div class="it"><b>Sudut fasa 3 fasa seimbang:</b> R, S, T masing-masing berjarak 120° · urutan fasa positif: R→S→T</div></div>
+</div></div>
+
+<div class="card" id="cd7">
+<div class="chd" onclick="tc('cd7')"><div class="cic">📗</div><span class="ctt">Standar PLN (SPLN)</span><span class="car">▶</span></div>
+<div class="cbd">
+<div class="item"><div class="chk" data-id="s1" onclick="tck(this)"></div><div class="it"><b>SPLN 108:1993</b> — MCB (Miniature Circuit Breaker)</div></div>
+<div class="item"><div class="chk" data-id="s2" onclick="tck(this)"></div><div class="it"><b>SPLN D3.005-1:2008</b> — KWH Meter elektronik 1 Fasa</div></div>
+<div class="item"><div class="chk" data-id="s3" onclick="tck(this)"></div><div class="it"><b>SPLN D3.006-1:2010</b> — KWH Meter elektronik 3 Fasa</div></div>
+<div class="item"><div class="chk" data-id="s4" onclick="tck(this)"></div><div class="it"><b>SPLN D3.009-1:2010</b> — MPB (Modul Pembatas &amp; Pengukur) 1 Fasa</div></div>
+<div class="item"><div class="chk" data-id="s5" onclick="tck(this)"></div><div class="it"><b>SPLN D3.003:2008</b> — Kotak APP Terpadu</div></div>
+</div></div>
+
+<div class="card" id="cd8">
+<div class="chd" onclick="tc('cd8')"><div class="cic">🦺</div><span class="ctt">K3, K2, SOP &amp; Keselamatan</span><span class="car">▶</span></div>
+<div class="cbd">
+<div class="item"><div class="chk" data-id="kk1" onclick="tck(this)"></div><div class="it"><b>K3</b> (Keselamatan &amp; Kesehatan Kerja) — prosedur dan alat untuk mencegah kecelakaan kerja di semua sektor</div></div>
+<div class="item"><div class="chk" data-id="kk2" onclick="tck(this)"></div><div class="it"><b>K2</b> (Keselamatan Ketenagalistrikan) — keselamatan spesifik sektor kelistrikan: jaringan dan manusia</div></div>
+<div class="item"><div class="chk" data-id="kk3" onclick="tck(this)"></div><div class="it"><b>JSA</b> (Job Safety Analysis) — identifikasi bahaya &amp; pengendalian risiko sebelum pekerjaan dimulai, wajib di lapangan</div></div>
+<div class="item"><div class="chk" data-id="kk4" onclick="tck(this)"></div><div class="it"><b>SOP</b> (Standar Operasi Prosedur) — pedoman langkah kerja standar agar pekerjaan teratur, optimal, aman, sesuai standar PLN</div></div>
+<div class="item"><div class="chk" data-id="kk5" onclick="tck(this)"></div><div class="it"><b>LOTO</b> (Lockout Tagout) — prosedur penguncian sumber energi saat pemeliharaan, mencegah energisasi tidak sengaja</div></div>
+</div></div>
+
+<div class="card" id="cd9">
+<div class="chd" onclick="tc('cd9')"><div class="cic">🌍</div><span class="ctt">Grounding, Isolasi &amp; Pembumian</span><span class="car">▶</span></div>
+<div class="cbd">
+<div class="item"><div class="chk" data-id="g1" onclick="tck(this)"></div><div class="it"><b>Grounding (Pembumian)</b> — menghubungkan bagian konduktif ke bumi untuk mengalirkan arus bocor, melindungi manusia dari sengatan listrik</div></div>
+<div class="item"><div class="chk" data-id="g2" onclick="tck(this)"></div><div class="it"><b>Tahanan Isolasi</b> — kemampuan isolasi kabel menahan kebocoran arus. Diukur megohmmeter (megger), nilai baik &gt;1 MΩ</div></div>
+<div class="item"><div class="chk" data-id="g3" onclick="tck(this)"></div><div class="it"><b>Tahanan Pembumian</b> — resistansi elektrode pembumian terhadap bumi. Diukur earth tester, nilai ideal &lt;5 Ω</div></div>
+<div class="item"><div class="chk" data-id="g4" onclick="tck(this)"></div><div class="it"><b>Konduktivitas tanah</b> — tanah lembab/berlumpur = konduktivitas baik, resistansi rendah = grounding lebih efektif</div></div>
+</div></div>
+
+</div>
+
+<div class="hr"></div>
+<div class="stit">🔀 Wiring Anomali &amp; Indikasi KWH Meter</div>
+<div class="wg">
+<div class="wi"><div class="wd" style="background:#c0392b"></div><span><b>Balik Fasa ↔ Netral — KWH Analog:</b> piringan berputar terbalik, akurasi pembacaan terganggu (register menurun)</span></div>
+<div class="wi"><div class="wd" style="background:#c0392b"></div><span><b>Balik Fasa ↔ Netral — KWH Digital:</b> muncul tampilan Error atau anomali pada display LCD</span></div>
+<div class="wi"><div class="wd" style="background:#e67e22"></div><span><b>Fasa input → terminal 3, MCB → terminal 1</b> (wiring terbalik) → piringan mundur, stand mundur bergantung tahun pembuatan</span></div>
+<div class="wi"><div class="wd" style="background:#e67e22"></div><span><b>Terdapat arus bocor/grounding dari terminal ke bumi</b> → muncul ⚠️ indikator <b>"Periksa Tangan"</b> pada display digital</span></div>
+<div class="wi"><div class="wd" style="background:#e67e22"></div><span><b>Pengawatan terbalik LPB</b> → muncul ⚠️ indikator <b>"Periksa Panah"</b> (arah putaran piringan salah)</span></div>
+<div class="wi"><div class="wd" style="background:#c0392b"></div><span><b>Bypass terminal 1–3</b> (fasa langsung ke beban tanpa lewat pengukuran) → muncul ⚠️ <b>"Periksa Tangan" + ERR-01</b></span></div>
+<div class="wi"><div class="wd" style="background:#c0392b"></div><span><b>Injeksi beban ke fasa input sebelum terminal 1</b> → muncul ⚠️ <b>"Periksa Tangan"</b></span></div>
+<div class="wi"><div class="wd" style="background:#c0392b"></div><span><b>Netral tidak terhubung / putus</b> → muncul ⚠️ <b>"Periksa Tangan"</b></span></div>
+<div class="wi"><div class="wd" style="background:#8e44ad"></div><span><b>Magnet eksternal:</b> KWH analog → memperlambat putaran piringan; KWH digital → memunculkan "magnetic tamper" pada event log</span></div>
+<div class="wi"><div class="wd" style="background:#27ae60"></div><span><b>Pengawatan normal:</b> T1=Fasa-in, T3=Fasa-out ke MCB, T4=Netral-in, T6=Netral-out · Kabel SR standar: 3.70mm² twisted + 50mm² netral</span></div>
+</div>
+</div>
+<!-- RUMUS -->
+<div class="pan" id="pan-ru">
+<div class="stit">🔢 Rumus-Rumus Lengkap</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(288px,1fr));gap:18px">
+<div>
+<div class="gh">⚡ HUKUM OHM &amp; DAYA DASAR</div>
+<div class="fc"><div class="fn">Tegangan — Hukum Ohm</div><div class="fm">V = I × R</div><div class="fd">Tegangan berbanding lurus dengan arus dan hambatan. Berlaku untuk rangkaian DC dan komponen resistif dalam rangkaian AC.</div><div class="fv"><div class="fvr"><b>V</b><span>Tegangan (Volt)</span></div><div class="fvr"><b>I</b><span>Arus (Ampere)</span></div><div class="fvr"><b>R</b><span>Hambatan / Resistansi (Ohm, Ω)</span></div></div><div class="fex"><b>Contoh:</b> I = 5A, R = 44Ω → V = 5 × 44 = <b>220 Volt</b></div></div>
+<div class="fc"><div class="fn">Daya Aktif (P)</div><div class="fm">P = V × I × cos φ</div><div class="fd">Daya kerja nyata yang terpakai beban resistif — memanaskan, menggerakkan motor, menyalakan lampu. Inilah yang dicatat KWH meter dan ditagihkan ke pelanggan PLN.</div><div class="fv"><div class="fvr"><b>P</b><span>Daya Aktif (Watt / kW)</span></div><div class="fvr"><b>cos φ</b><span>Faktor Daya (0–1, tanpa satuan)</span></div></div><div class="fex"><b>Contoh:</b> V=220V, I=5A, cosφ=0.85 → P = 220×5×0.85 = <b>935 W = 0.935 kW</b></div></div>
+<div class="fc"><div class="fn">Daya Reaktif (Q)</div><div class="fm">Q = V × I × sin φ</div><div class="fd">Daya yang bolak-balik antara sumber dan beban induktif/kapasitif. Tidak melakukan kerja nyata tetapi membebani jaringan dan kapasitas konduktor. Satuan: var / kVAR.</div><div class="fv"><div class="fvr"><b>Q</b><span>Daya Reaktif (var / kVAR)</span></div><div class="fvr"><b>sin φ</b><span>= √(1 − cos²φ)</span></div></div><div class="fok"><b>Hitung sin φ dari cosφ:</b> cosφ=0.85 → sinφ = √(1−0.7225) = √0.2775 ≈ <b>0.527</b></div></div>
+<div class="fc"><div class="fn">Daya Semu (S)</div><div class="fm">S = V × I</div><div class="fd">Total daya yang dipasok sumber — gabungan P dan Q. Menentukan kapasitas kabel, trafo, dan generator yang diperlukan. Satuan: VA / kVA.</div><div class="fex"><b>Segitiga Daya:</b> S² = P² + Q² → S = √(P² + Q²)</div></div>
+</div>
+<div>
+<div class="gh">📐 FAKTOR DAYA &amp; SEGITIGA DAYA</div>
+<div class="fc"><div class="fn">Faktor Daya (Power Factor)</div><div class="fm">PF = P ÷ S</div><div class="fd">Mengukur efisiensi penggunaan listrik. PF = 1.0 berarti semua daya digunakan untuk kerja nyata. PF rendah = banyak daya reaktif terbuang, membebani jaringan PLN.</div><div class="fok"><b>Standar PLN:</b> PF ≥ 0.85. Di bawahnya dikenai biaya kVAR tambahan dalam rekening listrik.</div><div class="fex"><b>Contoh:</b> P=10 kW, S=12 kVA → PF = 10÷12 = <b>0.833</b> (di bawah standar → biaya tambahan)</div></div>
+<div class="fc"><div class="fn">Sin Phi</div><div class="fm">sin φ = Q ÷ S</div><div class="fd">Perbandingan daya reaktif terhadap daya semu. Juga bisa dihitung langsung dari cos φ menggunakan identitas trigonometri.</div><div class="fex"><b>Alternatif langsung:</b> sin φ = √(1 − cos²φ)</div></div>
+<div class="fc"><div class="fn">Mencari Q (Segitiga Daya)</div><div class="fm">Q = √(S² − P²)</div><div class="fd">Ketika diketahui Daya Semu (S) dan Daya Aktif (P), Daya Reaktif (Q) dihitung dengan Teorema Pythagoras — S, P, Q membentuk segitiga siku-siku.</div><div class="fex"><b>Contoh:</b> S=12 kVA, P=10 kW → Q = √(144−100) = √44 ≈ <b>6.63 kVAR</b></div></div>
+<div class="fc"><div class="fn">Hambatan / Resistansi</div><div class="fm">R = V ÷ I</div><div class="fd">Hambatan sifat fisik material yang menentang aliran arus. Semakin besar hambatan, semakin kecil arus untuk tegangan yang sama. Satuan: Ohm (Ω).</div><div class="fok"><b>Tahanan Isolasi:</b> diukur megger, baik &gt;1 MΩ · <b>Tahanan Pembumian:</b> diukur earth tester, baik &lt;5 Ω</div></div>
+</div>
+<div>
+<div class="gh">📊 RUMUS ERROR KWH METER (P2TL)</div>
+<div class="fc"><div class="fn">P1 — Daya Terukur KWH (1 Fasa)</div><div class="fm" style="font-size:14px">P1 = (n×3600) / (t×c) × Fk</div><div class="fd">Nilai daya yang "ditunjukkan" KWH meter, dihitung dari putaran piringan (analog) atau pulsa LED (digital) selama waktu tertentu di lapangan.</div><div class="fv"><div class="fvr"><b>n</b><span>Jumlah putaran/pulsa yang dihitung</span></div><div class="fvr"><b>3600</b><span>Konversi detik ke jam (konstanta)</span></div><div class="fvr"><b>t</b><span>Waktu pengukuran (detik)</span></div><div class="fvr"><b>c</b><span>Konstanta KWH dari nameplate (mis. 900 rev/kWh)</span></div><div class="fvr"><b>Fk</b><span>Faktor koreksi (= 1 jika tanpa CT/PT)</span></div></div><div class="fex"><b>Contoh:</b> n=5, t=30 detik, c=900, Fk=1<br>P1 = (5×3600)/(30×900) = 18000/27000 = <b>0.667 kW</b></div></div>
+<div class="fc"><div class="fn">P2 — Daya Ukur Aktual (1 Fasa)</div><div class="fm" style="font-size:14px">P2 = V × I × cos φ ÷ 1000</div><div class="fd">Daya aktual diukur langsung dengan alat ukur. Ini adalah "kebenaran lapangan" — pemakaian nyata saat itu. Dibagi 1000 untuk konversi Watt → kW.</div><div class="fex"><b>Contoh:</b> V=220V, I=5A, cosφ=0.8 → P2 = 220×5×0.8÷1000 = <b>0.880 kW</b></div></div>
+<div class="fc"><div class="fn">Persentase Error KWH Meter</div><div class="fm" style="font-size:14px">Error = (P1−P2)/P2 × 100%</div><div class="fd">Selisih antara yang "diklaim" KWH meter (P1) vs kenyataan lapangan (P2), dalam persen. P2 sebagai pembagi karena merupakan referensi kebenaran ukur.</div><div class="fwn"><b>Interpretasi Error:</b><br>✅ <b>≥ 0%</b> → KWH normal/cepat, tidak ada indikasi manipulasi<br>⚠️ <b>−2% s/d 0%</b> → Dalam batas toleransi, KWH sedikit lambat<br>🚨 <b>&lt; −2%</b> → KWH sangat lambat → <b>indikasi kuat manipulasi P2TL!</b><br><br><i>Contoh: P1=0.667, P2=0.880 → Error = <b>−24.2%</b> → Sangat mencurigakan</i></div></div>
+<div class="fc"><div class="fn">P1 — KWH 3 Fasa (dengan CT/PT)</div><div class="fm" style="font-size:13px">P1 = (n×3600)/(t×c) × CT × PT</div><div class="fd">Untuk KWH 3 fasa dengan trafo ukur, hasil dikalikan rasio CT dan PT agar mewakili beban sesungguhnya di sisi primer.</div><div class="fv"><div class="fvr"><b>CT</b><span>Rasio Current Transformer, mis. 200/5 = 40</span></div><div class="fvr"><b>PT</b><span>Rasio Potential Transformer, mis. 20.000/100 = 200</span></div></div></div>
+<div class="fc"><div class="fn">P2 — Daya Aktual 3 Fasa</div><div class="fm" style="font-size:13px">P2 = (Pr + Ps + Pt) ÷ 1000</div><div class="fd">Total daya 3 fasa = jumlah daya aktif tiap fasa, dibagi 1000 untuk konversi ke kW.</div><div class="fv"><div class="fvr"><b>Pr</b><span>= Vr × Ir × cosφr (Watt, fasa R)</span></div><div class="fvr"><b>Ps</b><span>= Vs × Is × cosφs (Watt, fasa S)</span></div><div class="fvr"><b>Pt</b><span>= Vt × It × cosφt (Watt, fasa T)</span></div></div><div class="fok"><b>Keseimbangan:</b> Vr, Vs, Vt ke Netral idealnya 198–231V. Selisih antar fasa &gt;10% → tegangan tidak seimbang → perlu investigasi.</div></div>
+</div>
+</div>
+</div>
+<!-- KALKULATOR -->
+<div class="pan" id="pan-k">
+<div class="stit">🧮 Kalkulator P2TL</div>
+<div class="cw">
+<div class="ctit">Hitung &amp; Analisis Otomatis</div>
+<div class="ctabs">
+<button class="ctab on" onclick="scc('e1f',this)">Error 1 Fasa</button>
+<button class="ctab" onclick="scc('e3f',this)">Error 3 Fasa</button>
+<button class="ctab" onclick="scc('daya',this)">Segitiga Daya</button>
+<button class="ctab" onclick="scc('ohm',this)">Hukum Ohm</button>
+</div>
+<div class="cf on" id="cf-e1f">
+<div class="eler">
+<div class="elei"><div class="eled" style="background:var(--ok)"></div>≥ 0% = Normal/Cepat ✅</div>
+<div class="elei"><div class="eled" style="background:var(--wn)"></div>−2% s/d 0% = Toleransi ⚠️</div>
+<div class="elei"><div class="eled" style="background:var(--er)"></div>&lt; −2% = Indikasi P2TL 🚨</div>
+</div>
+<div class="ir">
+<div class="ig"><label>n (putaran/pulsa)</label><input id="e1n" type="number" placeholder="mis. 5"></div>
+<div class="ig"><label>t (waktu, detik)</label><input id="e1t" type="number" placeholder="mis. 30"></div>
+<div class="ig"><label>c (konstanta kWh)</label><input id="e1c" type="number" placeholder="mis. 900"></div>
+<div class="ig"><label>Fk (faktor koreksi)</label><input id="e1fk" type="number" value="1"></div>
+<div class="ig"><label>V (Tegangan, Volt)</label><input id="e1v" type="number" placeholder="mis. 220"></div>
+<div class="ig"><label>I (Arus, Ampere)</label><input id="e1i" type="number" placeholder="mis. 5"></div>
+<div class="ig"><label>cos φ</label><input id="e1cp" type="number" placeholder="mis. 0.85" step="0.01"></div>
+</div>
+<button class="btn" onclick="ce1f()">⚡ Hitung Error</button>
+<div class="cr" id="cr-e1f">
+<div class="rr"><span class="rl">P1 (dari KWH)</span><span class="rv" id="rp1a">—</span></div>
+<div class="rr"><span class="rl">P2 (ukur langsung)</span><span class="rv" id="rp2a">—</span></div>
+<div class="rr"><span class="rl">Error (%)</span><span class="rv" id="rera">—</span></div>
+<div class="rr"><span class="rl">Kesimpulan</span><span class="rv" id="rksa" style="font-size:12px;line-height:1.4">—</span></div>
+</div>
+</div>
+<div class="cf" id="cf-e3f">
+<div class="eler">
+<div class="elei"><div class="eled" style="background:var(--ok)"></div>≥ 0% = Normal ✅</div>
+<div class="elei"><div class="eled" style="background:var(--wn)"></div>−2% s/d 0% = Toleransi ⚠️</div>
+<div class="elei"><div class="eled" style="background:var(--er)"></div>&lt; −2% = Indikasi P2TL 🚨</div>
+</div>
+<div class="ir">
+<div class="ig"><label>n (putaran)</label><input id="e3n" type="number" placeholder="5"></div>
+<div class="ig"><label>t (detik)</label><input id="e3t" type="number" placeholder="30"></div>
+<div class="ig"><label>c (konstanta)</label><input id="e3c" type="number" placeholder="900"></div>
+<div class="ig"><label>CT</label><input id="e3ct" type="number" value="1"></div>
+<div class="ig"><label>PT</label><input id="e3pt" type="number" value="1"></div>
+</div>
+<div class="ir">
+<div class="ig"><label>Vr (V)</label><input id="e3vr" type="number" placeholder="220"></div>
+<div class="ig"><label>Ir (A)</label><input id="e3ir" type="number" placeholder="5"></div>
+<div class="ig"><label>cos φr</label><input id="e3cr" type="number" placeholder="0.85" step="0.01"></div>
+</div>
+<div class="ir">
+<div class="ig"><label>Vs (V)</label><input id="e3vs" type="number" placeholder="220"></div>
+<div class="ig"><label>Is (A)</label><input id="e3is" type="number" placeholder="5"></div>
+<div class="ig"><label>cos φs</label><input id="e3cs" type="number" placeholder="0.85" step="0.01"></div>
+</div>
+<div class="ir">
+<div class="ig"><label>Vt (V)</label><input id="e3vt" type="number" placeholder="220"></div>
+<div class="ig"><label>It (A)</label><input id="e3it" type="number" placeholder="5"></div>
+<div class="ig"><label>cos φt</label><input id="e3ct2" type="number" placeholder="0.85" step="0.01"></div>
+</div>
+<button class="btn" onclick="ce3f()">⚡ Hitung Error</button>
+<div class="cr" id="cr-e3f">
+<div class="rr"><span class="rl">P1 (dari KWH)</span><span class="rv" id="rp1b">—</span></div>
+<div class="rr"><span class="rl">Pr / Ps / Pt</span><span class="rv" id="rprb">—</span></div>
+<div class="rr"><span class="rl">P2 Total</span><span class="rv" id="rp2b">—</span></div>
+<div class="rr"><span class="rl">Error (%)</span><span class="rv" id="rerb">—</span></div>
+<div class="rr"><span class="rl">Kesimpulan</span><span class="rv" id="rksb" style="font-size:12px;line-height:1.4">—</span></div>
+</div>
+</div>
+<div class="cf" id="cf-daya">
+<p style="color:var(--mu);font-size:12.5px;margin-bottom:13px">Masukkan 2 nilai, sisanya dihitung otomatis berdasarkan S²=P²+Q².</p>
+<div class="ir">
+<div class="ig"><label>P — Daya Aktif (kW)</label><input id="dp" type="number" placeholder="kosongkan jika dihitung"></div>
+<div class="ig"><label>Q — Daya Reaktif (kVAR)</label><input id="dq" type="number" placeholder="kosongkan jika dihitung"></div>
+<div class="ig"><label>S — Daya Semu (kVA)</label><input id="ds" type="number" placeholder="kosongkan jika dihitung"></div>
+</div>
+<button class="btn" onclick="cdaya()">⚡ Hitung</button>
+<div class="cr" id="cr-daya">
+<div class="rr"><span class="rl">P (Daya Aktif)</span><span class="rv" id="rdp">—</span></div>
+<div class="rr"><span class="rl">Q (Daya Reaktif)</span><span class="rv" id="rdq">—</span></div>
+<div class="rr"><span class="rl">S (Daya Semu)</span><span class="rv" id="rds">—</span></div>
+<div class="rr"><span class="rl">cos φ (Faktor Daya)</span><span class="rv" id="rdpf">—</span></div>
+</div>
+</div>
+<div class="cf" id="cf-ohm">
+<p style="color:var(--mu);font-size:12.5px;margin-bottom:13px">Masukkan 2 nilai, sisanya dihitung otomatis (V=I×R).</p>
+<div class="ir">
+<div class="ig"><label>V — Tegangan (Volt)</label><input id="ov" type="number" placeholder="kosongkan jika dihitung"></div>
+<div class="ig"><label>I — Arus (Ampere)</label><input id="oi" type="number" placeholder="kosongkan jika dihitung"></div>
+<div class="ig"><label>R — Hambatan (Ohm)</label><input id="or2" type="number" placeholder="kosongkan jika dihitung"></div>
+</div>
+<button class="btn" onclick="cohm()">⚡ Hitung</button>
+<div class="cr" id="cr-ohm">
+<div class="rr"><span class="rl">V (Tegangan)</span><span class="rv" id="rov">—</span></div>
+<div class="rr"><span class="rl">I (Arus)</span><span class="rv" id="roi">—</span></div>
+<div class="rr"><span class="rl">R (Hambatan)</span><span class="rv" id="ror">—</span></div>
+</div>
+</div>
+</div>
+</div>
+<!-- PELANGGARAN -->
+<div class="pan" id="pan-p">
+<div class="stit">⚠️ Jenis Pelanggaran P2TL</div>
+<div class="pgr">
+<div class="pc p1"><span class="pbg">P1</span><div class="ptit">Mempengaruhi Pembatas Daya</div><div class="pdesc">Pelanggaran yang mempengaruhi MCB atau alat pembatas daya sehingga daya yang dikonsumsi melebihi daya kontrak yang telah disepakati dengan PLN.</div><div class="pmt">Contoh Modus</div><span class="tag">MCB diganti kapasitas lebih besar</span><span class="tag">Alat pembatas hilang/dicabut</span><span class="tag">Segel hilang/rusak/dipalsukan</span><span class="tag">MCB tidak standar PLN</span><span class="tag">Otak-atik mekanisme MCB</span></div>
+<div class="pc p2"><span class="pbg">P2</span><div class="ptit">Mempengaruhi Pengukuran Energi</div><div class="pdesc">Pelanggaran yang mengakibatkan KWH meter mencatat pemakaian lebih kecil dari kenyataan, sehingga tagihan lebih rendah dari pemakaian nyata.</div><div class="pmt">Contoh Modus</div><span class="tag">Bengkokan/penjepit piringan</span><span class="tag">Ganjal piringan</span><span class="tag">Jumper terminal fasa (1-3 atau 4-6)</span><span class="tag">Memundurkan register</span><span class="tag">Pecah/rusak kaca meter</span><span class="tag">Lubangi tutup meter</span><span class="tag">Magnet eksternal</span><span class="tag">Bypass terminal</span><span class="tag">Mengubah gigi transmisi</span><span class="tag">Merusak sekat meter</span><span class="tag">Mempengaruhi kumparan arus</span></div>
+<div class="pc p3"><span class="pbg">P3</span><div class="ptit">Mempengaruhi Pembatas + Pengukuran</div><div class="pdesc">Gabungan P1 dan P2, atau sambung langsung dari kabel SR tanpa melalui KWH meter — padahal pelanggan memiliki KWH meter terdaftar (KWH meter dikangkangi/bypass total).</div><div class="pmt">Sanksi</div><span class="tag">Pemutusan Sementara</span><span class="tag">Tagihan Susulan</span></div>
+<div class="pc p4"><span class="pbg">P4</span><div class="ptit">Bukan Pelanggan PLN</div><div class="pdesc">Sambung langsung dari jaringan PLN tanpa memiliki KWH meter sama sekali. Tidak terdaftar sebagai pelanggan PLN (sambung liar total).</div><div class="pmt">Sanksi</div><span class="tag">Pemutusan Sementara</span><span class="tag">Pembongkaran Rampung</span><span class="tag">Tagihan Susulan</span></div>
+</div>
+<div class="hr"></div>
+<div class="stit">📋 Ketidaksesuaian (K)</div>
+<div class="pgr">
+<div class="pc p4" style="background:#f0f6ff;border-color:#90b4f0"><span class="pbg" style="background:#d0e4ff;color:#1b3870">K1</span><div class="ptit">Pemakaian Tidak Sesuai Hak</div><div class="pdesc">Pemakaian tenaga listrik tidak sesuai dengan peruntukan daya atas hak yang sah. Contoh kalimat BAP: <i>"Pada saat pemeriksaan pemakaian listrik tidak sesuai dengan daya atas hak yang sah, dengan hasil ukur ....A"</i></div></div>
+<div class="pc" style="background:#f5f5f5;border-color:#c0c0c0"><span class="pbg" style="background:#e5e5e5;color:#555">K2</span><div class="ptit">KWH Rusak Bukan Kelalaian</div><div class="pdesc">KWH meter rusak, stand tidak naik, atau macet yang disebabkan bencana alam atau kondisi di luar kewenangan PLN maupun pelanggan.</div></div>
+</div>
+<div style="margin-top:14px"><div class="bx warn"><span class="bxt">Tabel Sanksi P2TL</span>Pemutusan Sementara → P3, P4 · Pembongkaran Rampung → P4 · Tagihan Susulan → P1, P2, P3, P4 · Pembayaran biaya lainnya sesuai ketentuan yang berlaku</div></div>
+<div class="hr"></div>
+<div class="stit">📝 Template Kalimat BAP</div>
+<div style="display:flex;flex-direction:column;gap:6px">
+<div class="ss"><span class="sn">P1</span><span>Dari hasil pemeriksaan dilokasi <b>Kedapatan mempengaruhi pembatas Daya (MCB)</b>, menggunakan MCB tidak standar PLN / segel hilang, dengan hasil ukur ... A</span></div>
+<div class="ss"><span class="sn">P2-A</span><span>Dari hasil pemeriksaan dilokasi <b>Kedapatan mempengaruhi pengukuran energi</b>, pengawatan pada KWH meter di bending pada terminal 1–3 &amp; 4–6 mengakibatkan tidak terukurnya pemakaian pada KWH, dengan hasil ukur ... A</span></div>
+<div class="ss"><span class="sn">P2-B</span><span>Dari hasil pemeriksaan dilokasi Kedapatan <b>mempengaruhi pengukuran energi</b>, terminal 1–3 dan 4–6 di-jumper, dengan hasil ukur ... A</span></div>
+<div class="ss"><span class="sn">P3-A</span><span>Dari hasil pemeriksaan dilokasi <b>Kedapatan mempengaruhi pengukuran energi dan pembatas daya</b>, dengan sambung langsung dari kabel SR tanpa melalui KWH meter, dengan hasil ukur ... A</span></div>
+<div class="ss"><span class="sn">P3-B</span><span>Dari hasil pemeriksaan dilokasi Kedapatan pengawatan pada KWH meter <b>tidak standar PLN, di-jumper pada terminal 1–3 &amp; 4–6 serta MCB tidak sesuai daya kontrak</b>, dengan hasil ukur ... A</span></div>
+<div class="ss"><span class="sn">P4-A</span><span>Dari hasil pemeriksaan dilokasi <b>Kedapatan sambung langsung tanpa ada KWH meter</b>, dengan hasil ukur ..... A</span></div>
+<div class="ss"><span class="sn">P4-B</span><span>Dari hasil pemeriksaan dilokasi Kedapatan <b>KWH meter tidak terdaftar di DIL PLN</b>, dengan hasil ukur .... A</span></div>
+</div>
+<div class="hr"></div>
+<div class="stit">🔨 Modus Operandi</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+<div class="fc"><div class="fn">🔧 Teknis (terhadap APP)</div><div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:8px"><span class="tag">Bypass terminal</span><span class="tag">Jumper fasa</span><span class="tag">Ganjal piringan</span><span class="tag">Magnet eksternal</span><span class="tag">Bengkokan piringan</span><span class="tag">Perusakan segel</span><span class="tag">Otak-atik MCB</span><span class="tag">Lubangi tutup</span><span class="tag">Ubah gigi transmisi</span></div></div>
+<div class="fc"><div class="fn">🚫 Non-Teknis (di luar APP)</div><div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:8px"><span class="tag">Sambung liar (tanpa APP)</span><span class="tag">Sambungan dari SR</span><span class="tag">Sadap umum</span><span class="tag">Sadap pelanggan lain</span><span class="tag">Manipulasi pembacaan</span><span class="tag">Memalsukan identitas</span><span class="tag">Pemindahan APP tanpa izin</span></div></div>
+</div>
+</div>
+<!-- PENGUKURAN -->
+<div class="pan" id="pan-m">
+<div class="stit">📐 Panduan Pengukuran Lengkap</div>
+<div class="bx info"><span class="bxt">Catatan Umum</span>Gunakan <b>tang ampere (clamp meter) digital</b> yang dilengkapi fungsi V, A, kW, dan PF. Mode <span class="bm">V~</span> untuk tegangan AC, <span class="bm">A~</span> untuk arus AC, <span class="bm">kW/PF</span> untuk daya dan faktor daya. Pastikan range alat sesuai sebelum mengukur.</div>
+
+<div class="smit">🔌 Pengukuran 1 Fasa</div>
+<div class="mc"><div class="mch"><span style="font-size:18px">⚡</span><span class="mct">1. Ukur Tegangan 1 Fasa</span><span class="mcb2">V~</span></div>
+<div class="mcb"><p style="color:var(--mu);font-size:13px;margin-bottom:10px">Tegangan nominal 1 fasa: <b>198–231 V</b> (±5% dari 220V). Di bawah 198V = drop tegangan berlebih. Di atas 231V = tegangan tinggi.</p>
+<table><tr><th>Pengukuran</th><th>Probe Merah (+)</th><th>Probe Hitam (−)</th><th>Nilai Normal</th></tr>
+<tr><td>V fasa-netral input MCB</td><td><span class="pr">Terminal 1 (fasa in)</span></td><td><span class="pk">Terminal 4 (netral in)</span></td><td>198–231 V</td></tr>
+<tr><td>V fasa-netral output MCB</td><td><span class="pr">Terminal 3 (fasa out)</span></td><td><span class="pk">Terminal 6 (netral out)</span></td><td>Sama dengan input (jika MCB ON)</td></tr>
+<tr><td>V di beban/stop kontak</td><td><span class="pr">Stop kontak fasa</span></td><td><span class="pk">Stop kontak netral</span></td><td>210–225V ideal</td></tr>
+</table>
+<div class="fok" style="margin-top:10px">Drop tegangan = Vterminal − Vbeban. Standar PLN maks 5% (≈11V dari 220V). Semakin jauh dari trafo distribusi, semakin besar drop.</div>
+</div></div>
+
+<div class="mc"><div class="mch"><span style="font-size:18px">🔁</span><span class="mct">2. Ukur Arus 1 Fasa</span><span class="mcb2">A~</span></div>
+<div class="mcb"><p style="color:var(--mu);font-size:13px;margin-bottom:10px">Arus diukur metode <b>kalungkan (clamp)</b> — tang dikaitkan mengelilingi salah satu kabel (fasa ATAU netral, <u>bukan keduanya bersamaan</u>).</p>
+<table><tr><th>Titik Ukur</th><th>Cara Memasang Tang</th><th>Keterangan</th></tr>
+<tr><td>Arus fasa input MCB</td><td>Kalungkan ke kabel fasa input MCB (dari terminal 1)</td><td>Arus dari KWH ke MCB</td></tr>
+<tr><td>Arus fasa output MCB</td><td>Kalungkan ke kabel fasa output MCB (dari terminal 3)</td><td>Arus ke instalasi beban</td></tr>
+<tr><td>Arus netral</td><td>Kalungkan ke kabel netral (terminal 4 atau 6)</td><td>Harus ≈ arus fasa pada beban seimbang</td></tr>
+</table>
+<div class="bx bad" style="margin-top:10px"><span class="bxt">Cross-check Penting!</span>Arus fasa input (terminal 1) harus ≈ arus fasa output (terminal 3). Jika berbeda signifikan → ada sadapan atau bypass di antara dua titik tersebut → indikasi P2TL kuat.</div>
+</div></div>
+
+<div class="mc"><div class="mch"><span style="font-size:18px">📊</span><span class="mct">3. Ukur Cos Phi (Faktor Daya) 1 Fasa</span><span class="mcb2">PF / kW</span></div>
+<div class="mcb"><table><tr><th>Langkah</th><th>Detail</th></tr>
+<tr><td>Set mode alat</td><td>Putar selector ke mode <span class="bm">kW</span> atau <span class="bm">PF</span></td></tr>
+<tr><td>Probe tegangan</td><td><span class="pr">Merah → fasa (terminal 1)</span>, <span class="pk">Hitam → netral (terminal 4)</span></td></tr>
+<tr><td>Kabel arus</td><td>Kalungkan ke kabel fasa (terminal 1 atau 3)</td></tr>
+<tr><td>Baca hasil</td><td>Layar menampilkan PF (mis. 0.85) dan daya aktif (mis. 0.935 kW)</td></tr>
+</table>
+<div class="fok" style="margin-top:10px">PF &lt;0.85 → perlu perbaikan (pemasangan kapasitor bank). Beban resistif murni (pemanas/lampu pijar) PF ≈ 1.0. Beban induktif (motor, AC) PF biasanya 0.7–0.9.</div>
+</div></div>
+
+<div class="mc"><div class="mch"><span style="font-size:18px">🔍</span><span class="mct">4. Deteksi Sadapan / Sambung Liar</span><span class="mcb2">A~</span></div>
+<div class="mcb"><table><tr><th>Metode</th><th>Cara</th><th>Interpretasi</th></tr>
+<tr><td><b>Metode Tang (Diferensial)</b></td><td>Kalungkan kabel <b>fasa DAN netral bersama</b> dalam tang</td><td>Nilai = 0A → aman. Nilai ≠ 0A → ada arus yang tidak kembali via netral → indikasi sadapan</td></tr>
+<tr><td><b>Metode MCB Mati</b></td><td>Matikan MCB, amati apakah beban masih menyala</td><td>Beban masih nyala saat MCB mati → sadapan langsung dari jalur sebelum MCB</td></tr>
+<tr><td><b>Perbandingan Arus SR</b></td><td>Ukur arus di kabel SR, bandingkan dengan arus output MCB</td><td>Arus SR &gt; arus output MCB → ada pengambilan arus antara SR dan APP</td></tr>
+</table>
+<div class="bx warn" style="margin-top:10px">Jika hasil kalungan fasa+netral ≠ 0, investigasi lebih lanjut: cek kabel SR, sambungan di kotak APP, dan pastikan grounding tidak tersambung ke beban secara tidak sengaja.</div>
+</div></div>
+
+<div class="smit" style="margin-top:22px">⚡ Pengukuran 3 Fasa</div>
+<div class="mc"><div class="mch"><span style="font-size:18px">📏</span><span class="mct">5. Ukur Tegangan 3 Fasa</span><span class="mcb2">V~</span></div>
+<div class="mcb"><p style="color:var(--mu);font-size:13px;margin-bottom:10px">Diukur dua konfigurasi: <b>Fasa ke Netral</b> (phase-ground) dan <b>Fasa ke Fasa</b> (line-to-line). Keduanya wajib diukur untuk memastikan keseimbangan sistem.</p>
+<table><tr><th>Pengukuran</th><th>Probe Merah (+)</th><th>Probe Hitam (−)</th><th>Nilai Normal</th></tr>
+<tr><td><b>Vrn</b></td><td><span class="pr">Fasa R</span></td><td><span class="pk">Netral (N)</span></td><td>198–231 V</td></tr>
+<tr><td><b>Vsn</b></td><td><span class="pr">Fasa S</span></td><td><span class="pk">Netral (N)</span></td><td>198–231 V</td></tr>
+<tr><td><b>Vtn</b></td><td><span class="pr">Fasa T</span></td><td><span class="pk">Netral (N)</span></td><td>198–231 V</td></tr>
+<tr><td><b>Vrs</b> (line)</td><td><span class="pr">Fasa R</span></td><td><span class="pk">Fasa S</span></td><td>≈ 380 V (342–418 V)</td></tr>
+<tr><td><b>Vrt</b> (line)</td><td><span class="pr">Fasa R</span></td><td><span class="pk">Fasa T</span></td><td>≈ 380 V</td></tr>
+<tr><td><b>Vst</b> (line)</td><td><span class="pr">Fasa S</span></td><td><span class="pk">Fasa T</span></td><td>≈ 380 V</td></tr>
+</table>
+<div class="bx bad" style="margin-top:10px"><span class="bxt">Cek Keseimbangan</span>Ketiga Vrn, Vsn, Vtn harus seimbang — selisih antar fasa &gt;10V perlu penyelidikan. Ketidakseimbangan tegangan dapat merusak motor dan peralatan 3 fasa.</div>
+</div></div>
+
+<div class="mc"><div class="mch"><span style="font-size:18px">🔁</span><span class="mct">6. Ukur Arus 3 Fasa</span><span class="mcb2">A~</span></div>
+<div class="mcb"><table><tr><th>Fasa</th><th>Cara Ukur</th><th>Simbol</th><th>Keterangan</th></tr>
+<tr><td>Fasa R</td><td>Kalungkan ke kabel fasa R</td><td>Ir</td><td>Arus beban fasa R</td></tr>
+<tr><td>Fasa S</td><td>Kalungkan ke kabel fasa S</td><td>Is</td><td>Arus beban fasa S</td></tr>
+<tr><td>Fasa T</td><td>Kalungkan ke kabel fasa T</td><td>It</td><td>Arus beban fasa T</td></tr>
+<tr><td>Netral</td><td>Kalungkan ke kabel netral</td><td>In</td><td>≈ 0 jika beban seimbang</td></tr>
+</table>
+<div class="fok" style="margin-top:10px">Sistem seimbang: Ir ≈ Is ≈ It, In ≈ 0. Ketidakseimbangan arus &gt;10% → perlu pemerataan beban. In sangat besar → kemungkinan arus harmonik dari beban non-linear (inverter, VFD, komputer).</div>
+</div></div>
+
+<div class="mc"><div class="mch"><span style="font-size:18px">📊</span><span class="mct">7. Ukur Cos Phi 3 Fasa</span><span class="mcb2">PF / kW</span></div>
+<div class="mcb"><table><tr><th>Fasa</th><th>Probe Merah</th><th>Probe Hitam</th><th>Kabel Dikaling</th><th>Hasil</th></tr>
+<tr><td>R</td><td><span class="pr">Fasa R</span></td><td><span class="pk">Netral</span></td><td>Kabel fasa R</td><td>PFr &amp; Pr (Watt)</td></tr>
+<tr><td>S</td><td><span class="pr">Fasa S</span></td><td><span class="pk">Netral</span></td><td>Kabel fasa S</td><td>PFs &amp; Ps (Watt)</td></tr>
+<tr><td>T</td><td><span class="pr">Fasa T</span></td><td><span class="pk">Netral</span></td><td>Kabel fasa T</td><td>PFt &amp; Pt (Watt)</td></tr>
+</table>
+<div class="fex" style="margin-top:10px">P2 total = (Pr + Ps + Pt) ÷ 1000 (kW). Gunakan untuk menghitung error dibandingkan P1 dari putaran piringan KWH.</div>
+</div></div>
+
+<div class="smit" style="margin-top:22px">🏗️ Pengukuran PHB-TR &amp; Gardu</div>
+<div class="mc"><div class="mch"><span style="font-size:18px">🏗️</span><span class="mct">8. Operasi &amp; Pengukuran PHB-TR</span><span class="mcb2">PHB-TR</span></div>
+<div class="mcb"><table><tr><th>Langkah SOP</th><th>Detail</th></tr>
+<tr><td>Operasi saklar utama</td><td>Pastikan Bus Bar bertegangan. Cek lampu indikator R/S/T menyala. Head Bump aktif sebagai pengaman mekanis.</td></tr>
+<tr><td>Pasang semua NF-Fuse</td><td>Pasang fuse NH sesuai kapasitas jurusan menggunakan <b>fuse puller</b> — jangan tangan langsung. Gunakan APD lengkap.</td></tr>
+<tr><td>Ukur tegangan kabel masuk</td><td>Probe ke Bus Bar tiap fasa vs Netral. Nilai normal: 380V (fasa-fasa) / 220V (fasa-netral).</td></tr>
+<tr><td>Ukur arus tiap fasa tiap jurusan</td><td>Kalungkan tang ke output tiap jurusan. Catat Ir, Is, It. Bandingkan untuk deteksi ketidakseimbangan beban antar jurusan.</td></tr>
+<tr><td>Ukur tegangan ujung saluran</td><td>Ukur tegangan di titik terjauh dari gardu. Nilai min 198V. Di bawah → drop tegangan berlebih → perlu penambahan penampang kabel atau trafo baru.</td></tr>
+</table>
+<div class="bx info" style="margin-top:10px"><span class="bxt">Komponen PHB-TR</span>Bus Bar (batang tembaga/aluminium penghubung), LBS (Load Break Switch), DS (Disconnect Switch), Lampu indikator R/S/T, Head Bump, NH-Fuse per jurusan, Rel dinding.</div>
+</div></div>
+
+<div class="mc"><div class="mch"><span style="font-size:18px">⏱️</span><span class="mct">9. Hitung Putaran Piringan KWH (Metode P1)</span><span class="mcb2">P1 Method</span></div>
+<div class="mcb"><table><tr><th>Langkah</th><th>Detail</th></tr>
+<tr><td>1. Persiapan</td><td>Stopwatch + kalkulator. Pastikan ada beban nyala (tidak boleh tanpa beban)</td></tr>
+<tr><td>2. Baca nameplate</td><td>Catat nilai <b>c</b> yang tertera, mis: <b>"900 rev/kWh"</b> atau <b>"1000 imp/kWh"</b></td></tr>
+<tr><td>3. Mulai hitung</td><td>Tekan start stopwatch saat tanda piringan melewati titik referensi (atau saat pulsa LED pertama)</td></tr>
+<tr><td>4. Hitung n putaran</td><td>Hitung <b>n = 5 atau 10 putaran</b> (lebih banyak = lebih akurat). Catat waktu t (detik) saat putaran ke-n selesai</td></tr>
+<tr><td>5. Hitung P1</td><td>P1 = (n × 3600) ÷ (t × c) × Fk → satuan kW</td></tr>
+<tr><td>6. Hitung P2</td><td>Ukur V, I, cosφ di lapangan → P2 = V × I × cosφ ÷ 1000</td></tr>
+<tr><td>7. Hitung Error</td><td>Error = (P1 − P2) / P2 × 100% → bandingkan dengan threshold ≥0%, −2%~0%, &lt;−2%</td></tr>
+</table>
+</div></div>
+
+<div class="mc"><div class="mch"><span style="font-size:18px">🔬</span><span class="mct">10. Pemeriksaan Pengawatan KWH</span><span class="mcb2">Inspeksi Wiring</span></div>
+<div class="mcb"><table><tr><th>Yang Diperiksa</th><th>Kondisi Normal</th><th>Indikasi Masalah</th></tr>
+<tr><td>Urutan terminal fasa</td><td>T1=Fasa-in, T3=Fasa-out (via MCB)</td><td>Dibalik/dipindah → P2</td></tr>
+<tr><td>Urutan terminal netral</td><td>T4=Netral-in, T6=Netral-out</td><td>Dipindah/putus → anomali</td></tr>
+<tr><td>Kondisi klem terminal</td><td>Kencang, tidak ada kabel longgar/terbakar</td><td>Longgar/hangus → risiko kebakaran</td></tr>
+<tr><td>Arah putaran piringan</td><td>Searah tanda panah (maju) ketika ada beban</td><td>Berbalik → wiring terbalik</td></tr>
+<tr><td>Kondisi segel metrologi</td><td>Segel utuh, nomor sesuai DIL PLN</td><td>Segel rusak/hilang/palsu → P1</td></tr>
+<tr><td>Kabel SR</td><td>Tidak ada sambungan liar, isolasi tidak rusak</td><td>Sambungan tambahan → P3/P4</td></tr>
+<tr><td>Kaca/tutup meter</td><td>Tidak retak, tidak ada lubang</td><td>Retak/berlubang → P2</td></tr>
+</table>
+</div></div>
+
+</div>
+<!-- SOP -->
+<div class="pan" id="pan-s">
+<div class="stit">📋 SOP Pelaksanaan P2TL</div>
+<div class="sph"><div class="spht">1 · PERENCANAAN</div><div class="sps">
+<div class="ss"><span class="sn">1.1</span>Diskusi perintah kerja, diskusi Target Operasi (TO), rencana kerja, dan dokumen terkait P2TL</div>
+<div class="ss"><span class="sn">1.2</span>Menentukan personil tim pelaksana P2TL sesuai kompetensi dan sertifikasi yang berlaku</div>
+</div></div>
+<div class="sph"><div class="spht">2 · PERSIAPAN</div><div class="sps">
+<div class="ss"><span class="sn">2.1</span>Menyiapkan SOP, JSA (Job Safety Analysis), dan formulir Berita Acara Pemeriksaan (BAP)</div>
+<div class="ss"><span class="sn">2.2</span>Menyiapkan alat kerja, alat bantu kerja, alat ukur, material segel, dan APD lengkap</div>
+<div class="ss"><span class="sn">2.3</span>Mengenakan APD lengkap sebelum berangkat ke lapangan</div>
+<div class="ss"><span class="sn">2.4</span>Kendaraan menuju lokasi Target Operasi (TO) sesuai perencanaan</div>
+</div></div>
+<div class="sph"><div class="spht">3 · PELAKSANAAN P2TL</div><div class="sps">
+<div class="ss"><span class="sn">3.1</span>Mengucapkan salam kepada pemakai listrik setibanya di lokasi</div>
+<div class="ss"><span class="sn">3.2</span>Menunjukkan Surat Tugas P2TL resmi dan ID Card petugas</div>
+<div class="ss"><span class="sn">3.3</span>Menyampaikan maksud dan tujuan pemeriksaan P2TL secara jelas kepada pemakai listrik</div>
+<div class="ss"><span class="sn">3.4</span>Meminta pendampingan kepada pemakai listrik sebagai saksi pemeriksaan</div>
+<div class="ss"><span class="sn">3.5</span>Pelaksana mengamankan dan menguasai lokasi pemeriksaan</div>
+<div class="ss"><span class="sn">3.6</span>Menerapkan JSA (Job Safety Analysis) — identifikasi bahaya dan pengendalian risiko di lokasi</div>
+<div class="ss"><span class="sn">3.7</span>Memeriksa dan mendokumentasikan kondisi kabel Sambungan Rumah (SR) — foto dari tiang ke kotak APP</div>
+<div class="ss"><span class="sn">3.8</span>Mengukur arus pada kabel fasa, netral, dan kombinasi fasa+netral (deteksi sadapan diferensial)</div>
+<div class="ss"><span class="sn">3.9</span>Memeriksa dan mendokumentasikan kondisi APP: identitas KWH, tipe/merk, stand meter, sisa pulsa, arus, tegangan, kondisi segel</div>
+<div class="ss"><span class="sn">3.10</span>Memeriksa kebenaran pengawatan KWH meter — urutan terminal, kondisi klem, arah putaran piringan, kondisi segel</div>
+<div class="ss"><span class="sn">3.11</span>Memeriksa kebenaran hasil ukur — cross check arus fasa input vs output, tegangan</div>
+<div class="ss"><span class="sn">3.12</span>Menentukan tindakan P2TL berdasarkan temuan (P1/P2/P3/P4/K1/K2 atau Normal)</div>
+<div class="ss"><span class="sn">3.13</span>Mengambil barang bukti temuan pelanggaran (foto, video, fisik jika perlu)</div>
+<div class="ss"><span class="sn">3.14</span>Menjelaskan hasil pemeriksaan P2TL kepada pemakai listrik secara transparan</div>
+<div class="ss"><span class="sn">3.15</span>Membuat Berita Acara Pemeriksaan (BAP) dan memberikan salinan BAP kepada pemakai listrik</div>
+<div class="ss"><span class="sn">3.16</span>Menginstruksikan pemakai listrik untuk datang ke kantor PLN dalam rangka penyelesaian tindak lanjut</div>
+<div class="ss"><span class="sn">3.17</span>Menyegel barang bukti pelanggaran dengan segel resmi PLN</div>
+<div class="ss"><span class="sn">3.18</span>Memeriksa kembali pengawatan APP setelah pengambilan bukti (urutan, kekencangan, klem, arah putaran)</div>
+<div class="ss"><span class="sn">3.19</span>Mengoperasikan APP kembali ke kondisi normal</div>
+<div class="ss"><span class="sn">3.20</span>Pengoperasian saklar utama PHB-TR</div>
+<div class="ss"><span class="sn">3.21</span>Memasang semua NF-Fuse sesuai kapasitas tiap jurusan menggunakan fuse puller</div>
+<div class="ss"><span class="sn">3.22</span>Mengukur tegangan kabel masuk dan kabel saluran keluar PHB-TR</div>
+<div class="ss"><span class="sn">3.23</span>Mengukur arus setiap fasa di setiap jurusan PHB-TR</div>
+<div class="ss"><span class="sn">3.24</span>Mengukur tegangan di ujung saluran (titik terjauh dari gardu distribusi)</div>
+</div></div>
+<div class="sph"><div class="spht">4 · TINDAK LANJUT HASIL TEMUAN</div><div class="sps">
+<div class="ss"><span class="sn">4.1</span>Menjelaskan temuan dan hasil kondisi lapangan kepada petugas administrasi P2TL di kantor</div>
+<div class="ss"><span class="sn">4.2</span>Memberikan keterangan dan berkas bukti jika terjadi proses hukum lanjutan</div>
+</div></div>
+<div class="sph"><div class="spht">5 · MEMBUAT LAPORAN</div><div class="sps">
+<div class="ss"><span class="sn">5.1</span>Melaporkan hasil pelaksanaan P2TL kepada penanggung jawab P2TL sesuai ketentuan perusahaan</div>
+<div class="ss"><span class="sn">5.2</span>Mendokumentasikan seluruh berkas BAP dan barang bukti secara rapi dan terarsip dengan baik</div>
+</div></div>
+<div class="hr"></div>
+<div class="stit">📞 Alur Pemanggilan Pemakai Listrik</div>
+<div style="display:flex;flex-wrap:wrap;gap:8px">
+<div class="vi" style="flex:none;padding:11px 15px;gap:8px"><span style="font-size:13px;font-weight:600">1️⃣ Panggilan 1</span></div>
+<div class="vi" style="flex:none;padding:11px 15px;gap:8px"><span style="font-size:13px;font-weight:600">2️⃣ Panggilan 2</span></div>
+<div class="vi" style="flex:none;padding:11px 15px;gap:8px"><span style="font-size:13px;font-weight:600">3️⃣ Panggilan 3</span></div>
+<div style="background:var(--wnb);border:1.5px solid rgba(122,80,0,.3);border-radius:10px;padding:11px 15px;font-size:13px;font-weight:600;color:var(--wn)">⚠️ Surat Peringatan 1 (SP-1)</div>
+<div style="background:var(--erb);border:1.5px solid rgba(146,32,32,.3);border-radius:10px;padding:11px 15px;font-size:13px;font-weight:600;color:var(--er)">🚨 Surat Peringatan 2 (SP-2)</div>
+<div style="background:var(--acll);border:1.5px solid var(--bd);border-radius:10px;padding:11px 15px;font-size:13px;font-weight:600;color:var(--ac)">🔨 Pembongkaran Rampung</div>
+</div>
+</div>
+<!-- TEGANGAN -->
+<div class="pan" id="pan-t">
+<div class="stit">⚡ Level Tegangan Listrik</div>
+<div class="vl">
+<div class="vi"><div class="vic" style="background:#e4f5ec">🏠</div><div class="vin"><div class="vnm">Tegangan Rendah (TR)</div><div class="vr" style="color:var(--ok)">200–240 V (1 Fasa) · 380–400 V (3 Fasa)</div><div class="vd">Distribusi langsung ke konsumen akhir — rumah tangga, pertokoan, perkantoran kecil. JTR menghubungkan gardu distribusi ke APP pelanggan.</div></div></div>
+<div class="vi"><div class="vic" style="background:#fff8e0">🏭</div><div class="vin"><div class="vnm">Tegangan Menengah (TM)</div><div class="vr" style="color:var(--wn)">6 kV – 20 kV (6.000 – 20.000 Volt)</div><div class="vd">Menghubungkan gardu induk ke gardu distribusi melalui JTM. Pelanggan industri menengah dapat terhubung langsung ke TM dengan trafo sendiri.</div></div></div>
+<div class="vi"><div class="vic" style="background:#fff0f0">🗼</div><div class="vin"><div class="vnm">Tegangan Tinggi (TT)</div><div class="vr" style="color:var(--er)">30 kV – 245 kV (30.000 – 245.000 Volt)</div><div class="vd">Transmisi energi jarak menengah hingga jauh dari pembangkit ke Gardu Induk (GI). Menggunakan SUTT (Saluran Udara Tegangan Tinggi) atau SKTT bawah tanah.</div></div></div>
+<div class="vi"><div class="vic" style="background:#eef4ff">⚡</div><div class="vin"><div class="vnm">Tegangan Ekstra Tinggi (TET)</div><div class="vr" style="color:var(--ac)">500 kV (500.000 Volt)</div><div class="vd">Transmisi energi skala sangat besar dan jarak sangat jauh — antar provinsi atau antar pulau (kabel laut HVDC). Sistem interkoneksi Jawa-Bali menggunakan TET.</div></div></div>
+</div>
+<div class="hr"></div>
+<div class="stit">🗺️ Alur Sistem Distribusi Listrik</div>
+<div style="background:var(--sur);border:1px solid var(--bd);border-radius:12px;padding:20px;font-family:'DM Mono',monospace;font-size:11.5px;line-height:2.4;overflow-x:auto;box-shadow:var(--sh0)">
+<span style="color:var(--ok);font-weight:500">Pembangkit Listrik</span><span style="color:var(--mu)"> (20kV)</span>
+→ <span style="color:var(--ac);font-weight:500">Trafo Step-Up Gardu Induk</span><span style="color:var(--mu)"> ↑150kV/500kV</span>
+→ <span style="color:var(--er);font-weight:500">SUTT / SUTET</span><span style="color:var(--mu)"> 150kV–500kV</span>
+→ <span style="color:var(--ac);font-weight:500">Trafo Step-Down GI</span><span style="color:var(--mu)"> ↓20kV</span>
+→ <span style="color:var(--wn);font-weight:500">JTM (SUTM/SKTM)</span><span style="color:var(--mu)"> 20kV</span>
+→ <span style="color:var(--ok);font-weight:500">Trafo Distribusi / Gardu Distribusi</span><span style="color:var(--mu)"> ↓380/220V</span>
+→ <span style="color:var(--in);font-weight:500">JTR + PHB-TR</span><span style="color:var(--mu)"> 220/380V</span>
+→ <span style="color:var(--acm);font-weight:500">SR (Sambungan Rumah)</span>
+→ <span style="color:var(--ac);font-weight:500">APP (KWH Meter + MCB)</span>
+→ <span style="color:var(--mu)">Instalasi Pelanggan (STL)</span>
+</div>
+<div class="hr"></div>
+<div class="stit">🔧 Peralatan Gardu &amp; Distribusi</div>
+<div class="g3">
+<div class="fc"><div class="fn">Generator (G)</div><div class="fm" style="font-size:15px">G — Pembangkit</div><div class="fd">Mesin pembangkit tenaga listrik. Simbol: lingkaran dengan G di dalam. Mengubah energi mekanik menjadi energi listrik menggunakan prinsip induksi elektromagnetik (Faraday).</div></div>
+<div class="fc"><div class="fn">Transformator (Trafo)</div><div class="fm" style="font-size:15px">2 Lingkaran — Trafo</div><div class="fd">Mengubah nilai tegangan AC (naik/turun) menggunakan prinsip induksi mutual. CT (Current Transformer) untuk pengukuran arus. PT (Potential Transformer) untuk pengukuran tegangan.</div></div>
+<div class="fc"><div class="fn">DS, LBS, Bus Bar</div><div class="fm" style="font-size:15px">DS / LBS</div><div class="fd">DS (Disconnect Switch): memisahkan rangkaian tanpa beban. LBS (Load Break Switch): membuka/menutup dalam kondisi berbeban. Bus Bar: batang konduktor penghubung di panel/gardu distribusi.</div></div>
+</div>
+</div>
+
+<!-- ALAT -->
+<div class="pan" id="pan-a">
+<div class="stit">🔧 Alat Ukur P2TL</div>
+<div class="g3" style="margin-bottom:26px">
+<div class="fc"><div class="fn">Volt Meter</div><div class="fm" style="font-size:16px">V~ / V=</div><div class="fd">Mengukur tegangan AC (V~) atau DC (V=). Pada tang ampere digital, gunakan probe merah (+) dan hitam (−).</div></div>
+<div class="fc"><div class="fn">Ampere Meter (Tang Ampere / Clamp Meter)</div><div class="fm" style="font-size:16px">A~</div><div class="fd">Mengukur arus AC menggunakan metode clamp non-kontak. Kabel dikaling satu per satu — tidak perlu memutus rangkaian. Sangat aman untuk pengukuran on-line.</div></div>
+<div class="fc"><div class="fn">Ohm Meter / Megger</div><div class="fm" style="font-size:16px">Ω / MΩ</div><div class="fd">Ohm meter: mengukur hambatan rangkaian (Ω). Megohmmeter (megger): mengukur tahanan isolasi kabel (MΩ) untuk mendeteksi kebocoran isolasi. Wajib digunakan dalam keadaan tidak bertenaga (de-energized).</div></div>
+<div class="fc"><div class="fn">Watt Meter / Power Meter</div><div class="fm" style="font-size:16px">kW / PF</div><div class="fd">Mengukur daya aktif (kW) dan faktor daya (cos φ) secara langsung dan bersamaan. Pada tang ampere modern, fungsi ini tersedia terintegrasi dalam satu alat.</div></div>
+<div class="fc"><div class="fn">Earth Tester</div><div class="fm" style="font-size:16px">Ω (GND)</div><div class="fd">Mengukur tahanan pembumian (grounding resistance). Nilai baik &lt;5 Ω. Menggunakan metode tiga titik elektrode (3-pole method).</div></div>
+<div class="fc"><div class="fn">Stopwatch &amp; Kalkulator</div><div class="fm" style="font-size:16px">t (s)</div><div class="fd">Stopwatch untuk menghitung waktu putaran piringan KWH saat mengukur P1. Kalkulator untuk menghitung error secara langsung di lapangan.</div></div>
+</div>
+<div class="hr"></div>
+<div class="stit">🦺 APD (Alat Pelindung Diri)</div>
+<p style="color:var(--mu);font-size:12.5px;margin-bottom:14px">Dasar hukum: <b>KEPDIR PT PLN (Persero) No. 1281.K/DIR/2011</b>, BAB IV, Pasal 7, Butir d. Wajib digunakan selama bekerja di lingkungan kelistrikan.</p>
+<div class="ag">
+<div class="ai"><div class="aix">⛑️</div>Helm Safety</div>
+<div class="ai"><div class="aix">🥾</div>Sepatu Isolasi 20kV</div>
+<div class="ai"><div class="aix">🧤</div>Sarung Tangan Isolasi 20kV</div>
+<div class="ai"><div class="aix">🕶️</div>Kacamata Pelindung</div>
+<div class="ai"><div class="aix">🪢</div>Tali &amp; Sabuk Pengaman</div>
+<div class="ai"><div class="aix">🪜</div>Tangga Fibreglass</div>
+</div>
+<div class="hr"></div>
+<div class="stit" style="font-size:15px">🛠️ Peralatan Kerja Lapangan P2TL</div>
+<div style="display:flex;flex-wrap:wrap;gap:7px">
+<span class="tag">Tool set lengkap</span><span class="tag">Senter / headlamp</span><span class="tag">Kalkulator ilmiah</span><span class="tag">Stopwatch digital</span><span class="tag">Kaca pembesar</span><span class="tag">Tang segel</span><span class="tag">Tang KW / clamp meter</span><span class="tag">Kamera / HP</span><span class="tag">Megger</span><span class="tag">Earth tester</span><span class="tag">Fuse puller</span><span class="tag">Surat Tugas resmi</span><span class="tag">ID Card</span><span class="tag">Formulir BAP</span><span class="tag">Segel resmi PLN</span>
+</div>
+</div>
+<!-- MPB -->
+<div class="pan" id="pan-mpb">
+<div class="stit">📟 Modul Pembatas &amp; Pengukur (MPB)</div>
+<div class="bx info" style="margin-bottom:18px"><span class="bxt">Tentang MPB</span>MPB adalah perangkat elektronik terpadu yang menggantikan fungsi MCB konvensional pada KWH meter prabayar (token). MPB secara otomatis memutus aliran listrik jika pemakaian melebihi daya kontrak. Dilengkapi fitur tamper detection dan logging event.</div>
+<div class="pgr" style="margin-bottom:24px">
+<div class="pc p4" style="border-color:#90b4f0;background:#eef4ff"><span class="pbg" style="background:#d0e4ff;color:#1b3870">Gen 1</span><div class="ptit">Single Sensing Single Relay</div><div class="pdesc">4 terminal. Sensing satu arah, relay satu jalur. Generasi awal MPB, paling mudah dimanipulasi (hanya satu jalur yang diputus).</div></div>
+<div class="pc" style="background:#edf8f2;border-color:#80c8a0"><span class="pbg" style="background:#c8eedc;color:#166b30">Gen 2</span><div class="ptit">Double Sensing Single Relay</div><div class="pdesc">4 terminal. Sensing dua arah (fasa &amp; netral), relay satu jalur. Lebih tahan manipulasi dari Gen 1 karena dapat mendeteksi anomali dari dua sisi.</div></div>
+<div class="pc p3" style="background:#fffae5;border-color:#d4a800"><span class="pbg" style="background:#fff0c0;color:#6e5400">Gen 3</span><div class="ptit">Double Sensing Double Relay</div><div class="pdesc">4 terminal. Sensing dua arah, relay dua jalur (fasa &amp; netral keduanya diputus saat trip). Lebih aman dan lebih sulit dimanipulasi.</div></div>
+<div class="pc" style="background:#f8f0ff;border-color:#c8a0e0"><span class="pbg" style="background:#e8d0ff;color:#5a1890">Gen 4</span><div class="ptit">Double Sensing Double Relay</div><div class="pdesc">5 terminal. Penambahan terminal untuk komunikasi/monitoring jarak jauh. Fitur anti-tamper paling canggih dengan logging event dan remote management.</div></div>
+</div>
+<div class="hr"></div>
+<div class="stit" style="font-size:15px">#️⃣ Shortcode MPB (Kode Cek Lapangan)</div>
+<div class="bx info" style="margin-bottom:14px">Shortcode dimasukkan melalui keypad KWH prabayar untuk cek parameter langsung di lapangan tanpa alat ukur tambahan. Format: tekan kode lalu tekan Enter/tanda #.</div>
+<div class="scg">
+<div class="sci"><span class="scc">44</span><div><div class="scl">Cek Arus</div><span style="font-size:11px;color:var(--mu)">Nilai arus beban saat ini (A)</span></div></div>
+<div class="sci"><span class="scc">41</span><div><div class="scl">Cek Tegangan</div><span style="font-size:11px;color:var(--mu)">Nilai tegangan saat ini (V)</span></div></div>
+<div class="sci"><span class="scc">47</span><div><div class="scl">Daya Sesaat</div><span style="font-size:11px;color:var(--mu)">Daya aktif saat ini (W)</span></div></div>
+<div class="sci"><span class="scc">01</span><div><div class="scl">Cek Relay MCB</div><span style="font-size:11px;color:var(--mu)">Status relay (ON / OFF)</span></div></div>
+<div class="sci"><span class="scc">08</span><div><div class="scl">Cek Temper</div><span style="font-size:11px;color:var(--mu)">Status tamper / manipulasi</span></div></div>
+<div class="sci"><span class="scc">37</span><div><div class="scl">Sisa Pulsa</div><span style="font-size:11px;color:var(--mu)">Saldo kWh tersisa</span></div></div>
+<div class="sci"><span class="scc">39</span><div><div class="scl">Cos Phi</div><span style="font-size:11px;color:var(--mu)">Faktor daya saat ini</span></div></div>
+<div class="sci"><span class="scc">40</span><div><div class="scl">Daya Semu</div><span style="font-size:11px;color:var(--mu)">Nilai daya semu (VA)</span></div></div>
+</div>
+</div>
+
+<!-- HUKUM -->
+<div class="pan" id="pan-h">
+<div class="stit">📜 Landasan Hukum P2TL</div>
+<div class="ll">
+<div class="li"><strong>PERDIR PT PLN (Persero) No. 088-Z.P/DIR/2016</strong>Peraturan Direksi tentang Penertiban Pemakaian Tenaga Listrik (P2TL). Merupakan dasar hukum utama pelaksanaan seluruh kegiatan P2TL. Dikukuhkan oleh Keputusan Direktur Jenderal Ketenagalistrikan (DJK) Nomor 304 Tahun 2016.</div>
+<div class="li"><strong>Undang-Undang No. 30 Tahun 2009 tentang Ketenagalistrikan — Pasal 44 Ayat 6</strong>Setiap tenaga teknik dalam usaha ketenagalistrikan wajib memiliki sertifikat kompetensi yang dikeluarkan oleh lembaga sertifikasi kompetensi yang terakreditasi.</div>
+<div class="li"><strong>Undang-Undang No. 15 Tahun 1985 tentang Ketenagalistrikan</strong>Regulasi induk yang mengatur penyediaan dan pemanfaatan tenaga listrik di Indonesia secara menyeluruh.</div>
+<div class="li"><strong>Keputusan Presiden (Keppres) No. 25 Tahun 2001</strong>Tentang pembentukan Tim Koordinasi Penertiban Penggunaan Energi. Mengatur tindakan hukum terhadap perusakan instalasi kelistrikan dan pencurian listrik.</div>
+<div class="li"><strong>Peraturan Pemerintah (PP) No. 10 Tahun 1989 tentang Penyediaan dan Pemanfaatan Tenaga Listrik</strong>Mengatur peran, hak, dan kewajiban penyedia serta pemakai tenaga listrik termasuk tindakan terhadap penyalahgunaan.</div>
+<div class="li"><strong>Undang-Undang No. 8 Tahun 1999 tentang Perlindungan Konsumen</strong>Memberikan landasan perlindungan hukum bagi konsumen listrik dalam hubungannya dengan PLN sebagai penyedia layanan.</div>
+<div class="li"><strong>KEPDIR PT PLN (Persero) No. 1281.K/DIR/2011 — BAB IV, Pasal 7, Butir d</strong>Menetapkan kewajiban penggunaan Alat Pelindung Diri (APD) bagi seluruh petugas lapangan PT PLN (Persero) tanpa terkecuali.</div>
+</div>
+<div class="hr"></div>
+<div class="stit">🎯 Tujuan &amp; Tugas P2TL</div>
+<div class="g2">
+<div>
+<div class="smit" style="margin-top:0">Tujuan P2TL</div>
+<div style="display:flex;flex-direction:column;gap:6px">
+<div class="ss"><span style="font-size:16px">⚖️</span>Menertibkan pemakaian tenaga listrik agar sesuai peraturan yang berlaku</div>
+<div class="ss"><span style="font-size:16px">📉</span>Mengurangi susut distribusi non-teknis (commercial losses) jaringan PLN</div>
+<div class="ss"><span style="font-size:16px">💰</span>Mengurangi kerugian finansial PT PLN (Persero) akibat pencurian listrik</div>
+<div class="ss"><span style="font-size:16px">✅</span>Memastikan instalasi listrik pelanggan aman dan sesuai standar PLN</div>
+</div>
+</div>
+<div>
+<div class="smit" style="margin-top:0">Tugas Petugas P2TL</div>
+<div style="display:flex;flex-direction:column;gap:6px">
+<div class="ss"><span style="font-size:16px">🔍</span>Memeriksa JTR, STL, SR, APP, dan instalasi pemakai tenaga listrik</div>
+<div class="ss"><span style="font-size:16px">📝</span>Mencatat dan mendokumentasikan seluruh temuan saat pelaksanaan P2TL</div>
+<div class="ss"><span style="font-size:16px">✍️</span>Menandatangani Berita Acara Pemeriksaan (BAP) P2TL</div>
+<div class="ss"><span style="font-size:16px">👥</span>Meminta pendampingan saksi saat pemeriksaan kepada pemakai listrik</div>
+<div class="ss"><span style="font-size:16px">📁</span>Menyerahkan bukti hasil P2TL kepada petugas administrasi P2TL</div>
+</div>
+</div>
+</div>
+<div style="margin-top:16px"><div class="bx info"><span class="bxt">Definisi Resmi P2TL</span>P2TL adalah <b>rangkaian kegiatan</b> yang meliputi <i>perencanaan, pemeriksaan, tindakan, dan penyelesaian</i> yang dilakukan oleh PLN terhadap instalasi PLN dan/atau instalasi pemakai tenaga listrik dari PLN dalam rangka menegakkan peraturan pemakaian tenaga listrik secara adil dan transparan.</div></div>
+</div>
+
+<!-- CARI -->
+<div class="pan" id="pan-c">
+<div class="stit">🔍 Cari Materi</div>
+<div class="sw"><span class="sic">🔍</span><input class="si" type="text" placeholder="Cari istilah, singkatan, rumus, pasal hukum..." oninput="dsrch(this.value)"></div>
+<div id="sres"><p class="se">Ketik untuk mulai mencari...</p></div>
+</div>
+
+</div><!-- /main -->
+
+<div class="footer">
+  <div style="color:var(--ac);font-weight:500;font-size:13px">Handbook Penertiban Pemakaian Tenaga Listrik (P2TL) · PT PLN (Persero)</div>
+  <div style="margin-top:4px;font-size:11px">Hak Cipta © 2025 · Irvan Maulana · Dikembangkan dengan bantuan Claude AI (Anthropic)</div>
+  <div style="margin-top:6px;font-size:10px;color:var(--bd2)">Progress belajar tersimpan otomatis di perangkat Anda · localStorage: p2tl_hb_v1</div>
+</div>
+<script>
+const LS='p2tl_hb_v1';
+const SD=["Tegangan (V, Volt) — gaya dorong aliran listrik dalam rangkaian","Arus (I, Ampere) — besarnya aliran muatan listrik per satuan waktu","Hambatan (R, Ohm) — kemampuan material menentang aliran arus listrik","Impedansi (Z) — hambatan total rangkaian AC: Z = sqrt(R2+X2)","Reaktansi Induktif XL = 2*pi*f*L","Reaktansi Kapasitif XC = 1/(2*pi*f*C)","Daya Aktif P = V * I * cosφ (Watt/kW)","Daya Reaktif Q = V * I * sinφ (var/kVAR)","Daya Semu S = V * I (VA/kVA), S2 = P2 + Q2","Faktor Daya PF = P / S, standar PLN >= 0.85","Hukum Ohm: V=I*R, I=V/R, R=V/I","Hukum Kirchhoff 1 (KCL): jumlah arus masuk = jumlah arus keluar di titik cabang","Hukum Kirchhoff 2 (KVL): jumlah tegangan dalam loop tertutup = nol","APP Alat Pengukur dan Pembatas — mengukur energi dan membatasi daya sesuai kontrak","KWH Meter teknologi: elektro-mekanik (analog/piringan), elektronik digital","KWH Meter sistem bayar: pascabayar (analog/digital), prabayar (digital token)","Terminal 1 Fasa: 1=Fasa-in, 3=Fasa-out (ke MCB), 4=Netral-in, 6=Netral-out","Terminal 3 Fasa: 1,3 (R), 4,6 (S), 7,9 (T), 10=Netral-in, 11=Netral-out","Konstanta KWH (c): jumlah putaran/pulsa per kWh, tertera di nameplate","Tarif R=Rumah Tangga, S=Sosial, B=Bisnis, I=Industri, P=Pemerintah","JTR Jaringan Tegangan Rendah: SUTR (NYA,NYAF,NYM) dan SKTR (NYFGBY)","SR Sambungan Rumah — kabel dari tiang ke APP pelanggan (luar ruangan)","STL Saluran Tegangan Listrik — instalasi dalam bangunan pelanggan","FCO Fuse Cut Out — pengaman lebur di JTM, proteksi arus hubung singkat","PHB-TR Panel Hubung Bagi Tegangan Rendah — panel distribusi di gardu","LBS Load Break Switch — dapat membuka/menutup dalam kondisi berbeban","Warna kabel: R=Merah, S=Kuning, T=Hitam, Netral=Biru, Grounding=Hijau-Kuning (PUIL)","Sudut fasa 3 fasa seimbang: R, S, T berjarak 120 derajat masing-masing","Grounding pembumian: mengalirkan arus bocor ke bumi, melindungi dari sengatan listrik","Tahanan Isolasi: diukur megger, nilai baik lebih dari 1 Mohm","Tahanan Pembumian: diukur earth tester, nilai baik kurang dari 5 Ohm","P1 — Mempengaruhi Pembatas Daya MCB: MCB diganti kapasitas lebih besar, segel hilang","P2 — Mempengaruhi Pengukuran Energi: bengkokan piringan, jumper terminal, bypass, magnet","P3 — Sambung langsung dari kabel SR tanpa melalui KWH meter (punya KWH meter)","P4 — Bukan pelanggan PLN, sambung langsung tanpa KWH meter, tidak terdaftar DIL PLN","K1 — Pemakaian listrik tidak sesuai dengan daya atas hak yang sah","K2 — KWH meter rusak akibat bencana alam di luar kewenangan PLN maupun pelanggan","Sanksi: Pemutusan Sementara (P3,P4), Pembongkaran Rampung (P4), Tagihan Susulan (P1-P4)","Modus Teknis: bypass terminal, jumper fasa, ganjal piringan, magnet eksternal, perusakan segel","Modus Non-Teknis: sambung liar, sadap umum, sadap pelanggan, manipulasi pembacaan, memalsukan identitas","MCB Miniature Circuit Breaker — membatasi daya sesuai kontrak, trip jika terlampaui","K3 Keselamatan dan Kesehatan Kerja — umum semua sektor","K2 Keselamatan Ketenagalistrikan — spesifik sektor listrik","JSA Job Safety Analysis — identifikasi bahaya dan pengendalian risiko sebelum pekerjaan","LOTO Lockout Tagout — penguncian sumber energi saat pemeliharaan","SOP Standar Operasi Prosedur — pedoman langkah kerja standar PLN","Tujuan P2TL: menertibkan pemakaian, mengurangi susut distribusi, mengurangi kerugian PLN, memastikan keamanan","Tegangan Rendah TR 200-240V (1 fasa) 380-400V (3 fasa) — ke konsumen akhir","Tegangan Menengah TM 6-20kV — JTM dari gardu induk ke gardu distribusi","Tegangan Tinggi TT 30-245kV — SUTT transmisi dari pembangkit ke gardu induk","Tegangan Ekstra Tinggi TET 500kV — SUTET/HVDC antar pulau antar provinsi","APD: helm safety, sepatu isolasi 20kV, sarung tangan isolasi 20kV, kacamata, tali pengaman, tangga fibreglass","KEPDIR 1281.K/DIR/2011 BAB IV Pasal 7 Butir d — kewajiban APD petugas lapangan PLN","MPB Gen1 Single Sensing Single Relay 4 terminal","MPB Gen2 Double Sensing Single Relay 4 terminal","MPB Gen3 Double Sensing Double Relay 4 terminal","MPB Gen4 Double Sensing Double Relay 5 terminal — anti-tamper canggih","Shortcode MPB: 44=Arus, 41=Tegangan, 47=Daya Sesaat, 01=Status Relay, 08=Temper, 37=Sisa Pulsa, 39=CosPhi, 40=Daya Semu","PERDIR PLN 088-Z.P/DIR/2016 dasar hukum utama P2TL dikukuhkan DJK 304/2016","UU 30 Tahun 2009 Pasal 44 Ayat 6 — wajib sertifikat kompetensi tenaga teknik ketenagalistrikan","UU 15 Tahun 1985 Ketenagalistrikan — penyediaan dan pemanfaatan tenaga listrik","Keppres 25 Tahun 2001 — penertiban pencurian listrik dan perusakan instalasi kelistrikan","PP 10 Tahun 1989 — penyediaan dan pemanfaatan tenaga listrik","UU 8 Tahun 1999 Perlindungan Konsumen","SPLN 108:1993 MCB; D3.005-1:2008 KWH 1Fasa; D3.006-1:2010 KWH 3Fasa; D3.009-1:2010 MPB; D3.003:2008 Kotak APP","Rumus Error KWH: P1=(n*3600)/(t*c)*Fk, P2=V*I*cosφ/1000, Error=(P1-P2)/P2*100%","Error >=0% = Normal/Cepat; -2% sd 0% = Toleransi; < -2% = Indikasi P2TL","P1 3 Fasa: P1=(n*3600)/(t*c)*CT*PT, P2=(Pr+Ps+Pt)/1000","Deteksi sadapan: kalungkan fasa+netral bersama, nilai tidak nol = indikasi sadapan","Cross-check arus: fasa input vs output MCB harus sama, berbeda = ada bypass/sadapan","Pengukuran Vrn 198-231V, Vsn 198-231V, Vtn 198-231V — harus seimbang","Pengukuran Vrs Vrt Vst sekitar 380V — harus seimbang","Bypass terminal 1-3 ERR-01 + Periksa Tangan","Pemanggilan: Panggilan 1, 2, 3, SP-1, SP-2, Pembongkaran Rampung","Definisi P2TL: rangkaian kegiatan perencanaan, pemeriksaan, tindakan, penyelesaian oleh PLN","BAP Berita Acara Pemeriksaan — dokumen resmi hasil pemeriksaan P2TL","DIL Daftar Instalasi Langganan — database pelanggan resmi PLN","Bus Bar batang konduktor penghubung di panel gardu distribusi","DS Disconnect Switch memisahkan rangkaian dalam kondisi tidak berbeban","Segitiga Daya: S2=P2+Q2, Q=sqrt(S2-P2), PF=P/S","Drop tegangan standar PLN maks 5% dari tegangan nominal","PF standar PLN >= 0.85, di bawahnya dikenai biaya kVAR tambahan"];
+
+function sp(id,b){
+  document.querySelectorAll('.pan').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.ntab').forEach(t=>t.classList.remove('on'));
+  document.getElementById('pan-'+id).classList.add('on');
+  if(b)b.classList.add('on');
+}
+function tc(id){document.getElementById(id).classList.toggle('op')}
+function tck(el){
+  el.classList.toggle('on');
+  el.innerHTML=el.classList.contains('on')?'✓':'';
+  const t=el.nextElementSibling;
+  if(t)t.classList.toggle('dn',el.classList.contains('on'));
+  save();uprog();
+}
+function save(){
+  const st={};
+  document.querySelectorAll('.chk[data-id]').forEach(e=>{st[e.dataset.id]=e.classList.contains('on')});
+  try{localStorage.setItem(LS,JSON.stringify(st))}catch(e){}
+}
+function load(){
+  let st={};
+  try{const r=localStorage.getItem(LS);if(r)st=JSON.parse(r)}catch(e){}
+  document.querySelectorAll('.chk[data-id]').forEach(e=>{
+    if(st[e.dataset.id]){e.classList.add('on');e.innerHTML='✓';const t=e.nextElementSibling;if(t)t.classList.add('dn')}
+  });
+  uprog();
+}
+function uprog(){
+  const a=document.querySelectorAll('.chk'),d=document.querySelectorAll('.chk.on');
+  const p=a.length?Math.round(d.length/a.length*100):0;
+  document.getElementById('pfill').style.width=p+'%';
+  document.getElementById('ptxt').textContent=d.length+' / '+a.length+' dipelajari ('+p+'%)';
+}
+function scc(id,b){
+  document.querySelectorAll('.ctab').forEach(t=>t.classList.remove('on'));
+  document.querySelectorAll('.cf').forEach(f=>f.classList.remove('on'));
+  if(b)b.classList.add('on');
+  document.getElementById('cf-'+id).classList.add('on');
+}
+function fmt(n,d=3){return isNaN(n)||!isFinite(n)?'—':n.toFixed(d)}
+function ecls(e){if(e>=0)return'ok';if(e>=-2)return'wn';return'er'}
+function elbl(e){
+  if(e>=0)return'✅ Normal / Cepat — tidak ada indikasi pelanggaran';
+  if(e>=-2)return'⚠️ Toleransi — KWH sedikit lambat, masih dalam batas wajar';
+  return'🚨 Indikasi P2TL — KWH sangat lambat (< −2%), perlu investigasi lapangan';
+}
+function ce1f(){
+  const n=+document.getElementById('e1n').value,t=+document.getElementById('e1t').value;
+  const c=+document.getElementById('e1c').value,fk=+document.getElementById('e1fk').value||1;
+  const v=+document.getElementById('e1v').value,i=+document.getElementById('e1i').value;
+  const cp=+document.getElementById('e1cp').value;
+  if(!n||!t||!c||!v||!i||!cp){alert('Isi semua field terlebih dahulu!');return}
+  const p1=(n*3600)/(t*c)*fk,p2=v*i*cp/1000,err=(p1-p2)/p2*100;
+  document.getElementById('rp1a').textContent=fmt(p1)+' kW';
+  document.getElementById('rp2a').textContent=fmt(p2)+' kW';
+  const ee=document.getElementById('rera');ee.textContent=fmt(err,2)+' %';ee.className='rv '+ecls(err);
+  const ke=document.getElementById('rksa');ke.textContent=elbl(err);ke.className='rv '+ecls(err);
+  document.getElementById('cr-e1f').classList.add('on');
+}
+function ce3f(){
+  const n=+document.getElementById('e3n').value,t=+document.getElementById('e3t').value;
+  const c=+document.getElementById('e3c').value;
+  const ct=+document.getElementById('e3ct').value||1,pt=+document.getElementById('e3pt').value||1;
+  const p1=(n*3600)/(t*c)*ct*pt;
+  const pr=+document.getElementById('e3vr').value*+document.getElementById('e3ir').value*+document.getElementById('e3cr').value;
+  const ps=+document.getElementById('e3vs').value*+document.getElementById('e3is').value*+document.getElementById('e3cs').value;
+  const ptt=+document.getElementById('e3vt').value*+document.getElementById('e3it').value*+document.getElementById('e3ct2').value;
+  const p2=(pr+ps+ptt)/1000,err=(p1-p2)/p2*100;
+  document.getElementById('rp1b').textContent=fmt(p1)+' kW';
+  document.getElementById('rprb').textContent=fmt(pr/1000,3)+' / '+fmt(ps/1000,3)+' / '+fmt(ptt/1000,3)+' kW';
+  document.getElementById('rp2b').textContent=fmt(p2)+' kW';
+  const ee=document.getElementById('rerb');ee.textContent=fmt(err,2)+' %';ee.className='rv '+ecls(err);
+  const ke=document.getElementById('rksb');ke.textContent=elbl(err);ke.className='rv '+ecls(err);
+  document.getElementById('cr-e3f').classList.add('on');
+}
+function cdaya(){
+  let p=document.getElementById('dp').value,q=document.getElementById('dq').value,s=document.getElementById('ds').value;
+  p=p===''?null:+p;q=q===''?null:+q;s=s===''?null:+s;
+  let rp,rq,rs;
+  if(p!==null&&q!==null){rs=Math.sqrt(p*p+q*q);rp=p;rq=q}
+  else if(p!==null&&s!==null){rq=Math.sqrt(Math.max(0,s*s-p*p));rs=s;rp=p}
+  else if(q!==null&&s!==null){rp=Math.sqrt(Math.max(0,s*s-q*q));rs=s;rq=q}
+  else{alert('Masukkan minimal 2 nilai!');return}
+  const rpf=rp/rs;
+  document.getElementById('rdp').textContent=fmt(rp,3)+' kW';
+  document.getElementById('rdq').textContent=fmt(rq,3)+' kVAR';
+  document.getElementById('rds').textContent=fmt(rs,3)+' kVA';
+  const pe=document.getElementById('rdpf');
+  pe.textContent=fmt(rpf,4)+(rpf>=0.85?' ✅ Memenuhi standar PLN':' ⚠️ Di bawah standar PLN');
+  pe.className='rv '+(rpf>=0.85?'ok':'wn');
+  document.getElementById('cr-daya').classList.add('on');
+}
+function cohm(){
+  let v=document.getElementById('ov').value,i=document.getElementById('oi').value,r=document.getElementById('or2').value;
+  v=v===''?null:+v;i=i===''?null:+i;r=r===''?null:+r;
+  let rv,ri,rr;
+  if(v!==null&&i!==null){rv=v;ri=i;rr=v/i}
+  else if(v!==null&&r!==null){rv=v;ri=v/r;rr=r}
+  else if(i!==null&&r!==null){rv=i*r;ri=i;rr=r}
+  else{alert('Masukkan minimal 2 nilai!');return}
+  document.getElementById('rov').textContent=fmt(rv,2)+' V';
+  document.getElementById('roi').textContent=fmt(ri,4)+' A';
+  document.getElementById('ror').textContent=fmt(rr,4)+' Ω';
+  document.getElementById('cr-ohm').classList.add('on');
+}
+function dsrch(q){
+  const res=document.getElementById('sres');
+  if(!q.trim()){res.innerHTML='<p class="se">Ketik untuk mulai mencari...</p>';return}
+  const lo=q.toLowerCase(),mx=SD.filter(d=>d.toLowerCase().includes(lo));
+  if(!mx.length){res.innerHTML='<p class="se">Tidak ditemukan hasil untuk "<b>'+q+'</b>"</p>';return}
+  const re=new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');
+  res.innerHTML='<div class="sr">'+mx.map((m,i)=>'<div class="sri" style="animation-delay:'+i*.025+'s">'+m.replace(re,'<mark>$1</mark>')+'</div>').join('')+'</div>';
+}
+load();
+</script>
+</body>
+</html>
